@@ -6,8 +6,8 @@ module.exports = {
     node: true,
   },
   extends: [
-    "react-app",
-    "react-app/jest",
+    'react-app',
+    'react-app/jest',
     'prettier',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
