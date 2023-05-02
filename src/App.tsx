@@ -8,7 +8,6 @@ function App() {
       <AppRouter />
     </Fragment>
   );
-  // <div className="App"></div>;
 }
 
 export default App;
