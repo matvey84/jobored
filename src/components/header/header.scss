@@ -1,0 +1,44 @@
+.header {
+  width: 100vw;
+  height: 85px;
+  background: #FFFFFF;
+  .container {
+    position: relative;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 308px;
+    isolation: isolate;
+    margin: 0 auto;
+
+    .header_logo__container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 12px;
+      width: 141px;
+      height: 36px;
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+      z-index: 1;
+      text-decoration: none ;
+      .header_logo__title {
+        width: 99px;
+        height: 36px;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 36px;
+        letter-spacing: -0.02em;
+        color: #232134;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+      }
+    }
+  }
+}
+

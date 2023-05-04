@@ -1,0 +1,29 @@
+.header_navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 60px;
+  position: absolute;
+  width: 275px;
+  height: 20px;
+  left: calc(50% - 275px/2 + 0.5px);
+  top: 32px;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  z-index: 0;
+  .header_navbar__link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    // display: flex;
+    // align-items: center;
+    color: #232134;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    text-decoration: none;
+  }
+}
