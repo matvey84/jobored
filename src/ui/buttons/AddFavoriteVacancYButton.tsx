@@ -3,7 +3,10 @@ import './buttonStyle.scss';
 
 const AddFavoriteVacancyButton = () => {
   return (
-    <button className="add-favorite-vacancy-button">
+    <button
+      className="add-favorite-vacancy-button"
+      data-elem="vacancy-_vacancy_id_-shortlist-button"
+    >
       <svg
         width="22"
         height="20"
