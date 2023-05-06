@@ -24,13 +24,24 @@
     height: 660px;
     background-color: aquamarine;
     border-radius: 12px;
-    .main-page_vacancy_list {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    .vacancy-list__wrapper {
       width: 100%;
-      padding: 0px;
-      gap: 16px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 596px;
+      cursor: all-scroll;
+      .main-page_vacancy-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding: 0px;
+        gap: 16px;
+      }
     }
+    
   }
+}
+.vacancy-list__wrapper::-webkit-scrollbar {
+  width: 0px;
 }
