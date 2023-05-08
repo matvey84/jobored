@@ -11,10 +11,6 @@ function VacancyList() {
         {vacancyData.map((vacancy) => (
           <VacancyItem key={nanoid()} data={vacancy} />
         ))}
-        {/* <VacancyItem />
-      <VacancyItem />
-      <VacancyItem />
-      <VacancyItem /> */}
       </section>
     </div>
   );
