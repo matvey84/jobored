@@ -4,12 +4,20 @@ import { IVacansy } from '../../types/vacancyTypes';
 
 interface IUserState {
   data: IVacansy[];
+  pageCount: number;
+  pagesAmount: number;
+  access_token: string;
+  totalVacancies: number;
   error: string;
   spinnerStatus: boolean;
 }
 
 const initFormState: IUserState = {
   data: [],
+  pageCount: 20,
+  pagesAmount: 0,
+  totalVacancies: 0,
+  access_token: '',
   error: '',
   spinnerStatus: false,
 };
@@ -18,8 +26,11 @@ export const dataSlice = createSlice({
   name: 'vacancyData',
   initialState: initFormState,
   reducers: {
-    // setUserData(state, action: PayloadAction<IUser>) {
-    //   state.user = action.payload;
+    // setToken(state, action: PayloadAction<string>) {
+    //   const { token, x_api_app_id, x_secret_key } = JSON.parse(action.payload);
+    //   state.access_token = token;
+    //   state.headers.x_api_app_id = x_api_app_id;
+    //   state.headers.x_secret_key = x_secret_key;
     // },
     // setUserToken(state, action: PayloadAction<string>) {
     //   state.access_token = action.payload;
@@ -47,7 +58,8 @@ export const dataSlice = createSlice({
         state.spinnerStatus = true;
       })
       .addCase(fetchGetVacancy.fulfilled, (state, action) => {
-        state.data = action.payload;
+        state.data = action.payload.objects;
+        state.pagesAmount = Math.ceil(action.payload.total / action.payload.objects.length);
         state.error = '';
         state.spinnerStatus = false;
       })
@@ -57,10 +69,8 @@ export const dataSlice = createSlice({
       });
   },
 });
-// export const {
-//   /*setUserData, setUserToken, setSignInStatus, setSpinnerStatus*/
-// } = dataSlice.actions;
 
+export const {} = dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {

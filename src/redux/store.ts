@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import userSlice from './user-slice/userSlice';
 import dataSlice from './data-slice/dataSlice';
+import paginationStateSlice from './paginator-slice/paginationStateSlice';
 
 const persistConfig = {
   key: 'root',
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   userSlice,
   dataSlice,
+  paginationStateSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

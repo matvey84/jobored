@@ -1,8 +1,8 @@
 .main-page_container {
   justify-content: space-between;
   align-items: flex-start;
-  background-color: bisque;
   padding-top: 39px;
+
   .main-page_form-block {
     display: flex;
     flex-direction: row;
@@ -15,26 +15,30 @@
     border: 1px solid #EAEBED;
     border-radius: 12px;
   }
+
   .main-page_vacancy-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 69.265%;
     max-width: 773px;
-    height: 660px;
-    background-color: aquamarine;
+    min-height: 776px;
     border-radius: 12px;
+
     .vacancy-list__wrapper {
       width: 100%;
       overflow-x: hidden;
       overflow-y: auto;
       height: 596px;
+
       cursor: all-scroll;
       .main-page_vacancy-list {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
+        height: auto;
         padding: 0px;
         gap: 16px;
       }

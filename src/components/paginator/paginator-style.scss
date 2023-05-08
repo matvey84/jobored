@@ -1,0 +1,77 @@
+.paginator-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:auto;
+  margin: 40px auto 44px auto;
+}
+.page-counter-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-counter{
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0 20px;
+}
+
+.paginator{
+  width: auto;
+  // height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-self: center;
+  // margin: 10px;
+}
+
+.btn-page,
+.btn-arrow{
+  width: 32px;
+  height: 32px;
+  margin: 0 5px;
+  border: 1px solid #D5D6DC;
+  background: #FFFFFF;
+  border-radius: 0.25rem;
+  background-color: transparent;
+}
+.btn-page-text{
+  font-size: 1.2em;
+  color: #232134;
+}
+
+.btn-page:hover,
+.btn-arrow:hover{
+  transform: scale(1.10);
+  cursor: pointer;
+}
+
+.btn-page:active,
+.left-arrow:active,
+.right-arrow:active{
+  background-color: #5E96FC;
+}
+
+.btn-page:disabled,
+.left-arrow:disabled,
+.right-arrow:disabled {
+  background-color: #5E96FC;
+  cursor: default;
+}
+.btn-page:disabled .btn-page-text,
+.left-arrow:disabled .btn-page-text,
+.right-arrow:disabled .btn-page-text {
+  color: #fff;
+}
+.btn-page:active .btn-page-text,
+.left-arrow:active .btn-page-text,
+.right-arrow:active .btn-page-text {
+  color: #fff;
+}
+.btn-page:disabled:hover,
+.left-arrow:disabled:hover,
+.right-arrow:disabled:hover {
+transform: scale(1)
+}
