@@ -2,14 +2,15 @@
   width: 100vw;
   height: 85px;
   background: #FFFFFF;
-  .container {
+  .header-container {
     position: relative;
-    flex-direction: row;
+    display: flex;
+    width: 100%;
+    max-width: 1116px;
+    height: 100%;
+    margin: 0 auto;
     justify-content: flex-start;
     align-items: center;
-    gap: 308px;
-    isolation: isolate;
-    margin: 0 auto;
 
     .header_logo__container {
       display: flex;

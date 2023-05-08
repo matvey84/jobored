@@ -7,7 +7,7 @@ import Navbar from './navbar/Navbar';
 function Header() {
   return (
     <section className="header">
-      <div className="container">
+      <div className="header-container">
         <NavLink className={'header_logo__container'} to={'/'}>
           <LogoSVG />
           <h1 className="header_logo__title">Jobored</h1>
