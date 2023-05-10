@@ -1,20 +1,21 @@
 import './paginator-style.scss';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import PageButtonList from './PageButtonList';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   setCurrentPage,
+  setFirstAndLastPaginationPages,
   setNumIndex,
   setPaginationFetchQuery,
 } from '../../redux/paginator-slice/paginationStateSlice';
 import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
+import { createAllButtonsNumberNote } from '../../redux/handlers/handlers';
 
 function Paginator() {
   const dispatch = useAppDispatch();
   const pagesAmmount = useAppSelector((state) => state.dataSlice.pagesAmount);
   const pageCounter = useAppSelector((state) => state.dataSlice.pageCount);
-  // const count = 20;
   const [disabledLeftArrow, setDisabledLeftArrow] = useState<boolean>(true);
   const [disabledRightArrow, setDisabledRightArrow] = useState<boolean>(false);
   const numIndex = useAppSelector((state) => state.paginationStateSlice.numIndex);
@@ -55,11 +56,27 @@ function Paginator() {
     dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
     dispatch(setCurrentPage(Number(paginationQuery.paginationData.page)));
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const buttonCreate = useCallback(
+    () => createAllButtonsNumberNote(pagesAmmount, numIndex),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [totalVacancies]
+  );
 
   useEffect(() => {
     setDisabledLeftArrow(numIndex + 1 <= 1);
     setDisabledRightArrow(numIndex * Number(pageCounter) >= pagesAmmount - Number(pageCounter));
   }, [numIndex, pageCounter, pagesAmmount]);
+
+  useEffect(() => {
+    const firstAndLastPaginationPages = {
+      firstPaginationPage: Math.min(...buttonCreate()[numIndex]),
+      lastPaginationPage: Math.max(...buttonCreate()[numIndex]),
+    };
+
+    dispatch(setFirstAndLastPaginationPages(firstAndLastPaginationPages));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, numIndex]);
 
   return (
     <div className="paginator-wrapper">
@@ -80,6 +97,7 @@ function Paginator() {
             numIndex={numIndex}
             pagesAmmount={pagesAmmount}
             totalVacancies={totalVacancies}
+            buttonCreate={buttonCreate}
           />
         }
         <button
