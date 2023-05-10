@@ -16,6 +16,7 @@ function MainPage() {
   const pageCounter = useAppSelector((state) => state.dataSlice.pageCount);
   const paginationData = useAppSelector((state) => state.paginationStateSlice.paginationFetchQuery);
   const spinnerStatus = useAppSelector((state) => state.dataSlice.spinnerStatus);
+  const vacancyData = useAppSelector((state) => state.dataSlice.data);
 
   useEffect(() => {
     const queryObject: IFetchQueryVacancyRequest = {
@@ -31,7 +32,7 @@ function MainPage() {
     dispatch(setPaginationFetchQuery(queryObject.paginationData));
     dispatch(fetchGetVacancy(queryObject));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
   return (
     <section className="page main-page">
       <div className="container main-page_container">
@@ -39,7 +40,7 @@ function MainPage() {
         <section className="main-page_vacancy-block">
           {spinnerStatus && <Loader />}
           <MainPageSearchForm />
-          <VacancyList />
+          <VacancyList vacancyData={vacancyData} />
           <Paginator />
         </section>
       </div>

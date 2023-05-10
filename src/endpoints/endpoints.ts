@@ -1,9 +1,10 @@
 const URL = 'https://startup-summer-2023-proxy.onrender.com';
-// const URL = ' http://localhost:4000';
+
 export const Endpoints = {
   ROOT: `${URL}`,
   AUTH: `${URL}/2.0/oauth2/password`,
   VACANCYES: `${URL}/2.0/vacancies`,
+  FAVORITES: `${URL}/2.0/favorites`,
 
   USERS: `${URL}/users`,
   SIGN_IN: `${URL}/signin`,

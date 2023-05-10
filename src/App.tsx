@@ -9,7 +9,7 @@ function App() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.userSlice.access_token);
   useEffect(() => {
-    !!token && dispatch(fetchLogin(USER));
+    !token && dispatch(fetchLogin(USER));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

@@ -8,7 +8,7 @@ function Navbar() {
       <NavLink className={'header_navbar__link'} to={'/'}>
         Поиск Вакансий
       </NavLink>
-      <NavLink className={'header_navbar__link'} to={'/favorite-vacancy/'}>
+      <NavLink className={'header_navbar__link'} to={'/favorite-vacancy'}>
         Избранное
       </NavLink>
     </nav>
