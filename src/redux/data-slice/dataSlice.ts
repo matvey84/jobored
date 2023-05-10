@@ -4,6 +4,7 @@ import { IVacansy } from '../../types/vacancyTypes';
 
 interface IUserState {
   data: IVacansy[];
+  favoriteVacancyList: IVacansy[];
   pageCount: number;
   pagesAmount: number;
   access_token: string;
@@ -14,6 +15,7 @@ interface IUserState {
 
 const initFormState: IUserState = {
   data: [],
+  favoriteVacancyList: [],
   pageCount: 20,
   pagesAmount: 0,
   totalVacancies: 0,
@@ -26,30 +28,18 @@ export const dataSlice = createSlice({
   name: 'vacancyData',
   initialState: initFormState,
   reducers: {
-    // setToken(state, action: PayloadAction<string>) {
-    //   const { token, x_api_app_id, x_secret_key } = JSON.parse(action.payload);
-    //   state.access_token = token;
-    //   state.headers.x_api_app_id = x_api_app_id;
-    //   state.headers.x_secret_key = x_secret_key;
-    // },
-    // setUserToken(state, action: PayloadAction<string>) {
-    //   state.access_token = action.payload;
-    // },
-    // setUserName(state, action: PayloadAction<string>) {
-    //   state.user.login = action.payload;
-    // },
-    // setUserId(state, action: PayloadAction<string>) {
-    //   state.user.login = action.payload;
-    // },
-    // setError(state, action: PayloadAction<string>) {
-    //   state.error = action.payload;
-    // },
-    // setSignInStatus(state, action: PayloadAction<boolean>) {
-    //   state.isSignIn = action.payload;
-    // },
-    // setSpinnerStatus(state, action: PayloadAction<boolean>) {
-    //   state.spinnerStatus = action.payload;
-    // },
+    setFavoriteVacancy(state, action: PayloadAction<string>) {
+      const favoriteVacancy = state.data
+        .filter((vacancy) => Number(vacancy.id) === Number(action.payload))
+        .at(-1);
+      state.favoriteVacancyList = state.favoriteVacancyList.some(
+        (vacancy) => Number(vacancy.id) === Number(action.payload)
+      )
+        ? state.favoriteVacancyList.filter(
+            (vacancy) => Number(vacancy.id) !== Number(action.payload)
+          )
+        : [...state.favoriteVacancyList, favoriteVacancy!];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,9 +49,11 @@ export const dataSlice = createSlice({
       })
       .addCase(fetchGetVacancy.fulfilled, (state, action) => {
         state.data = action.payload.objects;
+        state.totalVacancies = action.payload.total;
         state.pagesAmount = Math.ceil(action.payload.total / action.payload.objects.length);
         state.error = '';
         state.spinnerStatus = false;
+        state.favoriteVacancyList = !state.favoriteVacancyList ? [] : state.favoriteVacancyList;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload !== undefined ? action.payload : '';
@@ -70,7 +62,7 @@ export const dataSlice = createSlice({
   },
 });
 
-export const {} = dataSlice.actions;
+export const { setFavoriteVacancy } = dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {
