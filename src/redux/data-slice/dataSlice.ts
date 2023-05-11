@@ -1,10 +1,11 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { fetchGetVacancy } from './dataFetchRequest';
+import { fetchGetCurrentVacancy, fetchGetVacancy } from './dataFetchRequest';
 import { IVacansy } from '../../types/vacancyTypes';
 
-interface IUserState {
+interface IDataState {
   data: IVacansy[];
   favoriteVacancyList: IVacansy[];
+  currentVacancy: IVacansy | null;
   pageCount: number;
   pagesAmount: number;
   access_token: string;
@@ -13,9 +14,10 @@ interface IUserState {
   spinnerStatus: boolean;
 }
 
-const initFormState: IUserState = {
+const initFormState: IDataState = {
   data: [],
   favoriteVacancyList: [],
+  currentVacancy: null,
   pageCount: 20,
   pagesAmount: 0,
   totalVacancies: 0,
@@ -28,7 +30,7 @@ export const dataSlice = createSlice({
   name: 'vacancyData',
   initialState: initFormState,
   reducers: {
-    setFavoriteVacancy(state, action: PayloadAction<string>) {
+    setFavoriteVacancy(state, action: PayloadAction<string | undefined>) {
       const favoriteVacancy = state.data
         .filter((vacancy) => Number(vacancy.id) === Number(action.payload))
         .at(-1);
@@ -54,6 +56,15 @@ export const dataSlice = createSlice({
         state.error = '';
         state.spinnerStatus = false;
         state.favoriteVacancyList = !state.favoriteVacancyList ? [] : state.favoriteVacancyList;
+      })
+      .addCase(fetchGetCurrentVacancy.pending, (state, action) => {
+        state.error = '';
+        state.spinnerStatus = true;
+      })
+      .addCase(fetchGetCurrentVacancy.fulfilled, (state, action) => {
+        state.currentVacancy = action.payload;
+        state.error = '';
+        state.spinnerStatus = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload !== undefined ? action.payload : '';
