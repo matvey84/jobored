@@ -32,7 +32,6 @@
       overflow-y: auto;
       height: 596px;
 
-      cursor: all-scroll;
       .main-page_vacancy-list {
         display: flex;
         flex-direction: column;
@@ -46,6 +45,20 @@
     
   }
 }
+
 .vacancy-list__wrapper::-webkit-scrollbar {
   width: 0px;
+}
+.vacancy-list__wrapper:hover::-webkit-scrollbar {
+  width: 5px;
+}
+.vacancy-list__wrapper::-webkit-scrollbar-thumb {
+  width: 5px;
+  background-color: transparent;
+  border-radius: 12px;
+}
+
+.vacancy-list__wrapper:hover::-webkit-scrollbar-thumb {
+  box-shadow: inset 1px 1px 5px #5E96FC;
+  border: 1px solid #5E96FC;
 }
