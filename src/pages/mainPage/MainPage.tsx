@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './mainPage.scss';
 import MainPageSearchForm from '../../components/main-page-search-form/MainPageSearchForm';
 import VacancyList from '../../components/vacancy-list/VacancyList';
@@ -6,8 +6,12 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import Paginator from '../../components/paginator/Paginator';
 import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
-import { setPaginationFetchQuery } from '../../redux/paginator-slice/paginationStateSlice';
+import {
+  setFirstAndLastPaginationPages,
+  setPaginationFetchQuery,
+} from '../../redux/paginator-slice/paginationStateSlice';
 import Loader from '../../components/loader/Loader';
+import { createAllButtonsNumberNote } from '../../redux/handlers/handlers';
 
 function MainPage() {
   const dispatch = useAppDispatch();
@@ -17,6 +21,21 @@ function MainPage() {
   const paginationData = useAppSelector((state) => state.paginationStateSlice.paginationFetchQuery);
   const spinnerStatus = useAppSelector((state) => state.dataSlice.spinnerStatus);
   const vacancyData = useAppSelector((state) => state.dataSlice.data);
+  const totalVacancies = useAppSelector((state) => state.dataSlice.totalVacancies);
+  const numIndex = useAppSelector((state) => state.paginationStateSlice.numIndex);
+  const pagesAmmount = useAppSelector((state) => state.dataSlice.pagesAmount);
+
+  const buttonCreate = useCallback(() => {
+    return createAllButtonsNumberNote(pagesAmmount, numIndex);
+  }, [numIndex, pagesAmmount]);
+
+  useEffect(() => {
+    const firstAndLastPaginationPages = {
+      firstPaginationPage: Math.min(...buttonCreate()[numIndex]),
+      lastPaginationPage: Math.max(...buttonCreate()[numIndex]),
+    };
+    dispatch(setFirstAndLastPaginationPages(firstAndLastPaginationPages));
+  }, [buttonCreate, dispatch, numIndex]);
 
   useEffect(() => {
     const queryObject: IFetchQueryVacancyRequest = {
@@ -41,7 +60,11 @@ function MainPage() {
           {spinnerStatus && <Loader />}
           <MainPageSearchForm />
           <VacancyList vacancyData={vacancyData} />
-          <Paginator />
+          <Paginator
+            numIndex={numIndex}
+            pagesAmmount={pagesAmmount}
+            totalVacancies={totalVacancies}
+          />
         </section>
       </div>
     </section>
