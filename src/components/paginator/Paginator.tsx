@@ -1,25 +1,33 @@
 import './paginator-style.scss';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import PageButtonList from './PageButtonList';
 import { useCallback, useEffect, useState } from 'react';
-import {
-  setCurrentPage,
-  setFirstAndLastPaginationPages,
-  setNumIndex,
-  setPaginationFetchQuery,
-} from '../../redux/paginator-slice/paginationStateSlice';
-import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
+import { useLocation } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { createAllButtonsNumberNote } from '../../redux/handlers/handlers';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import {
+  setNumIndexFavoritePage,
+  setNumIndex,
+  setPaginationFetchQuery,
+  setCurrentPageForFavoritePage,
+  setCurrentPage,
+  setFirstAndLastPaginationPages,
+} from '../../redux/paginator-slice/paginationStateSlice';
+import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
+import PageButtonList from './PageButtonList';
+interface IProp {
+  numIndex: number;
+  pagesAmmount: number;
+  totalVacancies: number;
+  buttonCreate?: () => number[][];
+}
 
-function Paginator() {
+function Paginator(props: IProp) {
+  const { numIndex, pagesAmmount, totalVacancies } = props;
   const dispatch = useAppDispatch();
-  const pagesAmmount = useAppSelector((state) => state.dataSlice.pagesAmount);
+  const location = useLocation();
   const pageCounter = useAppSelector((state) => state.dataSlice.pageCount);
   const [disabledLeftArrow, setDisabledLeftArrow] = useState<boolean>(true);
   const [disabledRightArrow, setDisabledRightArrow] = useState<boolean>(false);
-  const numIndex = useAppSelector((state) => state.paginationStateSlice.numIndex);
-  const totalVacancies = useAppSelector((state) => state.dataSlice.totalVacancies);
   const user = useAppSelector((state) => state.userSlice.user);
   const token = useAppSelector((state) => state.userSlice.access_token);
   const paginationData = useAppSelector((state) => state.paginationStateSlice.paginationFetchQuery);
@@ -35,7 +43,9 @@ function Paginator() {
     };
 
     if (e.currentTarget.id === 'right-arrow') {
-      dispatch(setNumIndex(numIndex + 1));
+      location.pathname.includes('favorite')
+        ? dispatch(setNumIndexFavoritePage(numIndex + 1))
+        : dispatch(setNumIndex(numIndex + 1));
 
       paginationQuery.paginationData = {
         ...paginationQuery.paginationData,
@@ -44,7 +54,9 @@ function Paginator() {
     }
 
     if (e.currentTarget.id === 'left-arrow') {
-      dispatch(setNumIndex(numIndex - 1));
+      location.pathname.includes('favorite')
+        ? dispatch(setNumIndexFavoritePage(numIndex - 1))
+        : dispatch(setNumIndex(numIndex - 1));
 
       paginationQuery.paginationData = {
         ...paginationQuery.paginationData,
@@ -52,21 +64,20 @@ function Paginator() {
       };
     }
 
-    dispatch(fetchGetVacancy(paginationQuery));
-    dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
-    dispatch(setCurrentPage(Number(paginationQuery.paginationData.page)));
-  };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const buttonCreate = useCallback(
-    () => createAllButtonsNumberNote(pagesAmmount, numIndex),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [totalVacancies]
-  );
+    !location.pathname.includes('favorite') && dispatch(fetchGetVacancy(paginationQuery));
 
-  useEffect(() => {
-    setDisabledLeftArrow(numIndex + 1 <= 1);
-    setDisabledRightArrow(numIndex * Number(pageCounter) >= pagesAmmount - Number(pageCounter));
-  }, [numIndex, pageCounter, pagesAmmount]);
+    dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
+
+    location.pathname.includes('favorite') &&
+      dispatch(setCurrentPageForFavoritePage(Number(paginationQuery.paginationData.page)));
+
+    !location.pathname.includes('favorite') &&
+      dispatch(setCurrentPage(Number(paginationQuery.paginationData.page)));
+  };
+
+  const buttonCreate = useCallback(() => {
+    return createAllButtonsNumberNote(pagesAmmount, numIndex);
+  }, [numIndex, pagesAmmount]);
 
   useEffect(() => {
     const firstAndLastPaginationPages = {
@@ -75,14 +86,25 @@ function Paginator() {
     };
 
     dispatch(setFirstAndLastPaginationPages(firstAndLastPaginationPages));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, numIndex]);
+  }, [buttonCreate, dispatch, location.pathname, numIndex]);
+
+  useEffect(() => {
+    setDisabledLeftArrow(firstAndLastPaginationPages.firstPaginationPage - 1 <= 1);
+    setDisabledRightArrow(
+      (firstAndLastPaginationPages.lastPaginationPage - 1) * Number(pageCounter) >=
+        totalVacancies - Number(pageCounter)
+    );
+  }, [
+    totalVacancies,
+    firstAndLastPaginationPages.lastPaginationPage,
+    location.pathname,
+    numIndex,
+    pageCounter,
+    firstAndLastPaginationPages.firstPaginationPage,
+  ]);
 
   return (
     <div className="paginator-wrapper">
-      <div className="page-counter-wrapper">
-        {/* <span className="page-counter">Total pages: {maxLimitPages}</span> */}
-      </div>
       <div className="paginator">
         <button
           id="left-arrow"
@@ -92,14 +114,15 @@ function Paginator() {
         >
           <span className={`btn-page-text`}>&larr;</span>
         </button>
-        {
+        {buttonCreate().length ? (
           <PageButtonList
             numIndex={numIndex}
             pagesAmmount={pagesAmmount}
-            totalVacancies={totalVacancies}
             buttonCreate={buttonCreate}
           />
-        }
+        ) : (
+          <></>
+        )}
         <button
           id="right-arrow"
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => arrowButtonHandler(e)}

@@ -8,6 +8,7 @@ interface IDataState {
   currentVacancy: IVacansy | null;
   pageCount: number;
   pagesAmount: number;
+  favoritePageButtonsAmount: number;
   access_token: string;
   totalVacancies: number;
   error: string;
@@ -20,6 +21,7 @@ const initFormState: IDataState = {
   currentVacancy: null,
   pageCount: 20,
   pagesAmount: 0,
+  favoritePageButtonsAmount: 0,
   totalVacancies: 0,
   access_token: '',
   error: '',
@@ -41,6 +43,10 @@ export const dataSlice = createSlice({
             (vacancy) => Number(vacancy.id) !== Number(action.payload)
           )
         : [...state.favoriteVacancyList, favoriteVacancy!];
+
+      state.favoritePageButtonsAmount = Math.ceil(
+        state.favoriteVacancyList.length / state.pageCount
+      );
     },
   },
   extraReducers: (builder) => {
@@ -51,8 +57,9 @@ export const dataSlice = createSlice({
       })
       .addCase(fetchGetVacancy.fulfilled, (state, action) => {
         state.data = action.payload.objects;
-        state.totalVacancies = action.payload.total;
-        state.pagesAmount = Math.ceil(action.payload.total / action.payload.objects.length);
+        state.pageCount = 20;
+        state.totalVacancies = action.payload.total > 500 ? 500 : action.payload.total;
+        state.pagesAmount = Math.ceil(state.totalVacancies / action.payload.objects.length);
         state.error = '';
         state.spinnerStatus = false;
         state.favoriteVacancyList = !state.favoriteVacancyList ? [] : state.favoriteVacancyList;

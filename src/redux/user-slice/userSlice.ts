@@ -4,7 +4,7 @@ import { USER } from '../../endpoints/mocUser';
 import { IUserState } from '../../types/sliceTypes';
 import { fetchLogin } from './userFetchRequest';
 
-const initFormState: IUserState = {
+export const initFormState: IUserState = {
   user: USER,
   access_token: '',
   refresh_token: '',

@@ -1,5 +1,6 @@
 import { IFetchPaginationRequest } from '../../types/requestTypes';
 import { IUser } from '../../types/types';
+import { IVacansy } from '../../types/vacancyTypes';
 
 export function createrQueryString(
   data: IUser | IFetchPaginationRequest,
@@ -11,22 +12,50 @@ export function createrQueryString(
 }
 
 export const createAllButtonsNumberNote = (pagesAmmount: number, numIndex: number) => {
+  const visiblePaginationButtonAmmount = 3;
   const allPagesNumber: number[] = [];
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const totalNumPagesArr: number[][] = [];
-  const pageVisibleAmount = 3;
+  const paginationButtonVisibleAmount =
+    pagesAmmount < visiblePaginationButtonAmmount ? pagesAmmount : visiblePaginationButtonAmmount;
 
-  for (let i = 0; i <= pagesAmmount; i++) {
-    allPagesNumber.push(i + 1);
+  for (let i = 1; i <= pagesAmmount; i++) {
+    allPagesNumber.push(i);
   }
-  const totalAmountPages = Math.ceil(allPagesNumber.length / 20);
+
+  const totalAmountPages = Math.ceil(allPagesNumber.length / visiblePaginationButtonAmmount);
   for (let j = 0; j <= totalAmountPages; j++) {
-    totalNumPagesArr.push(allPagesNumber.splice(0, pageVisibleAmount));
+    totalNumPagesArr.push(
+      allPagesNumber.splice(
+        0,
+        allPagesNumber.length > paginationButtonVisibleAmount
+          ? paginationButtonVisibleAmount
+          : allPagesNumber.length
+      )
+    );
   }
 
-  const remainder = (numIndex + 1) * pageVisibleAmount - pagesAmmount;
-  if (numIndex + 1 === totalAmountPages) {
-    totalNumPagesArr[numIndex].splice(0 - remainder, remainder);
-  }
   return totalNumPagesArr;
+};
+
+export const favoriteVacancyListCreate = (favoriteList: IVacansy[], totlaItemInPage: number) => {
+  const copyArr = [...favoriteList];
+  const visiblePaginationButtonAmmount = 3;
+  const bllockArray: IVacansy[][][] = [];
+  const totalAmountPages = Math.ceil(copyArr.length / totlaItemInPage);
+
+  for (
+    let i = 0;
+    i < Math.ceil(copyArr.length / visiblePaginationButtonAmmount / totlaItemInPage);
+    i++
+  ) {
+    const newList: IVacansy[][] = [];
+    for (let j = 0; j < totalAmountPages; j++) {
+      const removedElCount = copyArr.length >= totlaItemInPage ? totlaItemInPage : copyArr.length;
+      newList.push(copyArr.splice(0, removedElCount));
+    }
+    bllockArray.push(newList);
+  }
+
+  return bllockArray;
 };
