@@ -1,10 +1,3 @@
-// export interface IUser {
-//   login: string;
-//   password: string;
-//   client_id: number;
-//   client_secret: string;
-//   hr: number;
-// }
 import { IUser } from '../types/types';
 
 export const USER: IUser = {

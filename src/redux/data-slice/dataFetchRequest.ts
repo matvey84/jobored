@@ -1,11 +1,8 @@
-// import { userSlice } from './../user-slice/userSlice';
-// import { dataSlice } from './dataSlice';
 import { IFetchQueryVacancyRequest } from './../../types/requestTypes';
 import { IRootVacancyResponse, IVacansy } from './../../types/vacancyTypes';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 import { createrQueryString } from '../handlers/handlers';
-// import { IUser } from '../../types/types';
 import { IUserState } from '../../types/sliceTypes';
 
 export const fetchGetVacancy = createAsyncThunk<
@@ -54,7 +51,6 @@ export const fetchGetCurrentVacancy = createAsyncThunk<IVacansy, string, { rejec
     }
 
     const vacancyes: IVacansy = await response.json();
-    console.log(vacancyes);
     return vacancyes;
   }
 );
