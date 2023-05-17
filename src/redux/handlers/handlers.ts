@@ -1,12 +1,18 @@
-import { IFetchPaginationRequest } from '../../types/requestTypes';
+import { IFetchPaginationRequest, ISearchQueryParams } from '../../types/requestTypes';
 import { IUser } from '../../types/types';
 import { IVacansy } from '../../types/vacancyTypes';
 
 export function createrQueryString(
-  data: IUser | IFetchPaginationRequest,
+  data: IUser | IFetchPaginationRequest | ISearchQueryParams,
   endpoint: string
 ): string {
   return `${endpoint}/?${Object.entries(data)
+    .map((params) => params.join('='))
+    .join('&')}`;
+}
+export function queryString(data: ISearchQueryParams | IFetchPaginationRequest): string {
+  console.log(data);
+  return `/?${Object.entries(data)
     .map((params) => params.join('='))
     .join('&')}`;
 }
