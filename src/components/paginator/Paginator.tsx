@@ -1,8 +1,8 @@
 import './paginator-style.scss';
 import { useCallback, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
-import { createAllButtonsNumberNote } from '../../redux/handlers/handlers';
+import { createAllButtonsNumberNote, queryString } from '../../redux/handlers/handlers';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   setNumIndexFavoritePage,
@@ -12,7 +12,7 @@ import {
   setCurrentPage,
   setFirstAndLastPaginationPages,
 } from '../../redux/paginator-slice/paginationStateSlice';
-import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
+import { IFetchQueryVacancyRequest, ISearchQueryParams } from '../../types/requestTypes';
 import PageButtonList from './PageButtonList';
 interface IProp {
   numIndex: number;
@@ -34,6 +34,8 @@ function Paginator(props: IProp) {
   const firstAndLastPaginationPages = useAppSelector(
     (state) => state.paginationStateSlice.firstAndLastPaginationPages
   );
+  const [_, setSearchParams] = useSearchParams();
+  const searchVacancie = useAppSelector((state) => state.dataSlice.searchVacancie);
 
   const arrowButtonHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const paginationQuery: IFetchQueryVacancyRequest = {
@@ -64,7 +66,8 @@ function Paginator(props: IProp) {
       };
     }
 
-    !location.pathname.includes('favorite') && dispatch(fetchGetVacancy(paginationQuery));
+    !location.pathname.includes('favorite') &&
+      dispatch(fetchGetVacancy(queryString(paginationQuery.paginationData)));
 
     dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
 
@@ -73,6 +76,14 @@ function Paginator(props: IProp) {
 
     !location.pathname.includes('favorite') &&
       dispatch(setCurrentPage(Number(paginationQuery.paginationData.page)));
+
+    const searchQueryParams: ISearchQueryParams = {
+      keyword: searchVacancie,
+      page: String(paginationQuery.paginationData.page),
+    };
+
+    !!searchVacancie && dispatch(fetchGetVacancy(queryString(searchQueryParams)));
+    setSearchParams(searchQueryParams);
   };
 
   const buttonCreate = useCallback(() => {

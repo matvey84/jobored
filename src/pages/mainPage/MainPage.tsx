@@ -11,7 +11,7 @@ import {
   setPaginationFetchQuery,
 } from '../../redux/paginator-slice/paginationStateSlice';
 import Loader from '../../components/loader/Loader';
-import { createAllButtonsNumberNote } from '../../redux/handlers/handlers';
+import { createAllButtonsNumberNote, queryString } from '../../redux/handlers/handlers';
 
 function MainPage() {
   const dispatch = useAppDispatch();
@@ -24,6 +24,7 @@ function MainPage() {
   const totalVacancies = useAppSelector((state) => state.dataSlice.totalVacancies);
   const numIndex = useAppSelector((state) => state.paginationStateSlice.numIndex);
   const pagesAmmount = useAppSelector((state) => state.dataSlice.pagesAmount);
+  const searchVacancie = useAppSelector((state) => state.dataSlice.searchVacancie);
 
   const buttonCreate = useCallback(() => {
     return createAllButtonsNumberNote(pagesAmmount, numIndex);
@@ -48,10 +49,21 @@ function MainPage() {
             count: pageCounter,
           },
     };
+
+    !!searchVacancie
+      ? dispatch(
+          fetchGetVacancy(
+            queryString({
+              keyword: searchVacancie,
+              page: String(paginationData.page),
+            })
+          )
+        )
+      : dispatch(fetchGetVacancy(queryString(queryObject.paginationData)));
     dispatch(setPaginationFetchQuery(queryObject.paginationData));
-    dispatch(fetchGetVacancy(queryObject));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <section className="page main-page">
       <div className="container main-page_container">
@@ -60,11 +72,15 @@ function MainPage() {
           {spinnerStatus && <Loader />}
           <MainPageSearchForm />
           <VacancyList vacancyData={vacancyData} />
-          <Paginator
-            numIndex={numIndex}
-            pagesAmmount={pagesAmmount}
-            totalVacancies={totalVacancies}
-          />
+          {!!vacancyData.length ? (
+            <Paginator
+              numIndex={numIndex}
+              pagesAmmount={pagesAmmount}
+              totalVacancies={totalVacancies}
+            />
+          ) : (
+            <></>
+          )}
         </section>
       </div>
     </section>

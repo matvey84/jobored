@@ -8,3 +8,9 @@ export interface IFetchPaginationRequest {
   page: string | number;
   count: string | number;
 }
+
+export interface ISearchQueryParams {
+  [published: string]: string;
+  keyword: string;
+  page: string;
+}

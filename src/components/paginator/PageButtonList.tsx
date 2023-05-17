@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import React, { memo, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -8,7 +8,8 @@ import {
   setCurrentPage,
   setPaginationFetchQuery,
 } from '../../redux/paginator-slice/paginationStateSlice';
-import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
+import { IFetchQueryVacancyRequest, ISearchQueryParams } from '../../types/requestTypes';
+import { queryString } from '../../redux/handlers/handlers';
 
 interface IProp {
   numIndex: number;
@@ -28,6 +29,8 @@ const PageButtonList = memo((props: IProp) => {
   const token = useAppSelector((state) => state.userSlice.access_token);
   const paginationData = useAppSelector((state) => state.paginationStateSlice.paginationFetchQuery);
   const [hilightButton, setHiligthButton] = useState<number>(0);
+  const [_, setSearchParams] = useSearchParams();
+  const searchVacancie = useAppSelector((state) => state.dataSlice.searchVacancie);
 
   const createPaginationQueryForFetch = (e: React.MouseEvent<HTMLButtonElement>) => {
     const paginationQuery: IFetchQueryVacancyRequest = {
@@ -40,12 +43,21 @@ const PageButtonList = memo((props: IProp) => {
       page: e.currentTarget.id,
     };
 
+    const searchQueryParams: ISearchQueryParams = {
+      keyword: searchVacancie,
+      page: String(paginationQuery.paginationData.page),
+    };
+
     location.pathname.includes('favorite') &&
       dispatch(setCurrentPageForFavoritePage(Number(e.currentTarget.id)));
 
     !location.pathname.includes('favorite') && dispatch(setCurrentPage(Number(e.currentTarget.id)));
     dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
-    dispatch(fetchGetVacancy(paginationQuery));
+
+    !!searchVacancie
+      ? dispatch(fetchGetVacancy(queryString(searchQueryParams)))
+      : dispatch(fetchGetVacancy(queryString(paginationQuery.paginationData)));
+    setSearchParams(searchQueryParams);
   };
   useEffect(
     () =>

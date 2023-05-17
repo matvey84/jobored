@@ -13,6 +13,7 @@ interface IDataState {
   totalVacancies: number;
   error: string;
   spinnerStatus: boolean;
+  searchVacancie: string;
 }
 
 const initFormState: IDataState = {
@@ -26,6 +27,7 @@ const initFormState: IDataState = {
   access_token: '',
   error: '',
   spinnerStatus: false,
+  searchVacancie: '',
 };
 
 export const dataSlice = createSlice({
@@ -47,6 +49,9 @@ export const dataSlice = createSlice({
       state.favoritePageButtonsAmount = Math.ceil(
         state.favoriteVacancyList.length / state.pageCount
       );
+    },
+    setSearchVacancie(state, action: PayloadAction<string>) {
+      state.searchVacancie = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -80,7 +85,7 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { setFavoriteVacancy } = dataSlice.actions;
+export const { setFavoriteVacancy, setSearchVacancie } = dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {
