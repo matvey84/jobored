@@ -1,4 +1,4 @@
-import { IRootVacancyResponse, IVacansy } from './../../types/vacancyTypes';
+import { ICatalogues, IRootVacancyResponse, IVacansy } from './../../types/vacancyTypes';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoints } from '../../endpoints/endpoints';
 import { IUserState } from '../../types/sliceTypes';
@@ -11,6 +11,7 @@ export const fetchGetVacancy = createAsyncThunk<
   const x_api_app_id: IUserState = JSON.parse(
     JSON.parse(localStorage.getItem('persist:root')!).userSlice
   );
+
   const response: Response = await fetch(`${Endpoints.VACANCYES}${fetchQuery}`, {
     method: 'GET',
     headers: {
@@ -50,5 +51,34 @@ export const fetchGetCurrentVacancy = createAsyncThunk<IVacansy, string, { rejec
 
     const vacancyes: IVacansy = await response.json();
     return vacancyes;
+  }
+);
+
+export const fetchGetCatalogues = createAsyncThunk<ICatalogues[], string, { rejectValue: string }>(
+  'fetch/fetchGetCatalogues',
+  async (fetchQuery, { rejectWithValue }) => {
+    const x_api_app_id: IUserState = JSON.parse(
+      JSON.parse(localStorage.getItem('persist:root')!).userSlice
+    );
+
+    const response: Response = await fetch(
+      'https://startup-summer-2023-proxy.onrender.com/2.0/catalogues/',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Api-App-Id': x_api_app_id.user.client_secret,
+          'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return rejectWithValue(`Somethig went wrong. Response end with ${response.status}`);
+    }
+
+    const catalogues: ICatalogues[] = await response.json();
+    console.log(catalogues);
+    return catalogues;
   }
 );

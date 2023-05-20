@@ -5,6 +5,7 @@ export const Endpoints = {
   AUTH: `${URL}/2.0/oauth2/password`,
   VACANCYES: `${URL}/2.0/vacancies`,
   FAVORITES: `${URL}/2.0/favorites`,
+  CATALOGUES: `${URL}/2.0/catalogues`,
 
   USERS: `${URL}/users`,
   SIGN_IN: `${URL}/signin`,

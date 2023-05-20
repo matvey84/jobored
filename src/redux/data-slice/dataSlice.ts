@@ -1,11 +1,14 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { fetchGetCurrentVacancy, fetchGetVacancy } from './dataFetchRequest';
-import { IVacansy } from '../../types/vacancyTypes';
+import { fetchGetCatalogues, fetchGetCurrentVacancy, fetchGetVacancy } from './dataFetchRequest';
+import { ICatalogues, IVacansy } from '../../types/vacancyTypes';
+import { IFetchQuery } from '../../types/requestTypes';
 
 interface IDataState {
   data: IVacansy[];
   favoriteVacancyList: IVacansy[];
   currentVacancy: IVacansy | null;
+  fetchQuery: IFetchQuery | null;
+  industryList: ICatalogues[];
   pageCount: number;
   pagesAmount: number;
   favoritePageButtonsAmount: number;
@@ -20,6 +23,8 @@ const initFormState: IDataState = {
   data: [],
   favoriteVacancyList: [],
   currentVacancy: null,
+  fetchQuery: null,
+  industryList: [],
   pageCount: 20,
   pagesAmount: 0,
   favoritePageButtonsAmount: 0,
@@ -53,6 +58,10 @@ export const dataSlice = createSlice({
     setSearchVacancie(state, action: PayloadAction<string>) {
       state.searchVacancie = action.payload;
     },
+    setFetchQuery(state, action: PayloadAction<IFetchQuery | null>) {
+      console.log(action.payload);
+      state.fetchQuery = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -78,6 +87,9 @@ export const dataSlice = createSlice({
         state.error = '';
         state.spinnerStatus = false;
       })
+      .addCase(fetchGetCatalogues.fulfilled, (state, action) => {
+        state.industryList = action.payload;
+      })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload !== undefined ? action.payload : '';
         state.spinnerStatus = false;
@@ -85,7 +97,7 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { setFavoriteVacancy, setSearchVacancie } = dataSlice.actions;
+export const { setFavoriteVacancy, setSearchVacancie, setFetchQuery } = dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {
