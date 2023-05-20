@@ -1,4 +1,4 @@
-import { IFetchPaginationRequest, ISearchQueryParams } from '../../types/requestTypes';
+import { IFetchPaginationRequest, IFetchQuery, ISearchQueryParams } from '../../types/requestTypes';
 import { IUser } from '../../types/types';
 import { IVacansy } from '../../types/vacancyTypes';
 
@@ -10,9 +10,10 @@ export function createrQueryString(
     .map((params) => params.join('='))
     .join('&')}`;
 }
-export function queryString(data: ISearchQueryParams | IFetchPaginationRequest): string {
-  console.log(data);
+
+export function queryString2(data: IFetchQuery | IUser): string {
   return `/?${Object.entries(data)
+    .filter((params) => !!params[1])
     .map((params) => params.join('='))
     .join('&')}`;
 }
@@ -46,22 +47,13 @@ export const createAllButtonsNumberNote = (pagesAmmount: number, numIndex: numbe
 
 export const favoriteVacancyListCreate = (favoriteList: IVacansy[], totlaItemInPage: number) => {
   const copyArr = [...favoriteList];
-  const visiblePaginationButtonAmmount = 3;
-  const bllockArray: IVacansy[][][] = [];
   const totalAmountPages = Math.ceil(copyArr.length / totlaItemInPage);
 
-  for (
-    let i = 0;
-    i < Math.ceil(copyArr.length / visiblePaginationButtonAmmount / totlaItemInPage);
-    i++
-  ) {
-    const newList: IVacansy[][] = [];
-    for (let j = 0; j < totalAmountPages; j++) {
-      const removedElCount = copyArr.length >= totlaItemInPage ? totlaItemInPage : copyArr.length;
-      newList.push(copyArr.splice(0, removedElCount));
-    }
-    bllockArray.push(newList);
+  const newList: IVacansy[][] = [];
+  for (let j = 0; j < totalAmountPages; j++) {
+    const removedElCount = copyArr.length >= totlaItemInPage ? totlaItemInPage : copyArr.length;
+    newList.push(copyArr.splice(0, removedElCount));
   }
 
-  return bllockArray;
+  return newList;
 };

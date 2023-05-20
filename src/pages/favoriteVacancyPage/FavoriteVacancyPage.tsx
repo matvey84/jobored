@@ -31,7 +31,7 @@ function FavoriteVacancyPage() {
   useEffect(() => {
     setSpinnerStatus(true);
     const res = !!favoriteVacancyes.length
-      ? buttonCreateVacancyList()[0][currentPageForFavoritePage - 1]
+      ? buttonCreateVacancyList()[currentPageForFavoritePage - 1]
       : favoriteVacancyes;
     seCurentPageVacancyData(res);
     setSpinnerStatus(false);
