@@ -9,7 +9,29 @@
   position: relative;
   z-index: 10;
 }
-.add-favorite-vacancy-button:hover .star {
+.add-favorite-vacancy-button:hover .star path {
   z-index: 10;
-  fill:#5E96FC
+  stroke:#5E96FC
+}
+
+.filter-form_reset-button {
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter-form_reset-button_label:hover ~ .filter-form_reset-button > .cross line{
+  stroke: #5E96FC
+}
+.filter-form_reset-button_label:active ~ .filter-form_reset-button > .cross line{
+  stroke: #5E96FC
+}
+
+.filter-form_reset-button:hover > .cross line {
+  stroke: #5E96FC;
+}
+.filter-form_reset-button:active > .cross line {
+  stroke: #3B7CD3;;
 }
