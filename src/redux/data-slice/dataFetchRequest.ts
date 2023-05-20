@@ -61,17 +61,14 @@ export const fetchGetCatalogues = createAsyncThunk<ICatalogues[], string, { reje
       JSON.parse(localStorage.getItem('persist:root')!).userSlice
     );
 
-    const response: Response = await fetch(
-      'https://startup-summer-2023-proxy.onrender.com/2.0/catalogues/',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Api-App-Id': x_api_app_id.user.client_secret,
-          'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
-        },
-      }
-    );
+    const response: Response = await fetch(`${Endpoints.CATALOGUES}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-App-Id': x_api_app_id.user.client_secret,
+        'x-secret-key': 'GEU4nvd3rej*jeh.eqp',
+      },
+    });
 
     if (!response.ok) {
       return rejectWithValue(`Somethig went wrong. Response end with ${response.status}`);
