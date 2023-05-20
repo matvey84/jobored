@@ -10,6 +10,8 @@
   background: #FFFFFF;
   border: 1px solid #EAEBED;
   border-radius: 12px;
+  text-decoration: none;
+  cursor: pointer;
   .vacancy-short-info {
     display: flex;
     flex-direction: column;
@@ -31,7 +33,6 @@
       font-size: 20px;
       line-height: 24px;
       color: #5E96FC;
-      text-decoration: none;
     }
     .vacancy-offers {
       white-space: nowrap;
@@ -58,6 +59,20 @@
       height: 20px;
     }
   }
+}
+
+.vacancy:hover .vacancy-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  height: 24px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #3B7CD3;
 }
 
 .vacancy-salary,

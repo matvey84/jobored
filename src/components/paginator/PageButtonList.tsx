@@ -1,14 +1,15 @@
 import { nanoid } from 'nanoid';
 import React, { memo, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   setCurrentPageForFavoritePage,
   setCurrentPage,
-  setPaginationFetchQuery,
 } from '../../redux/paginator-slice/paginationStateSlice';
-import { IFetchQueryVacancyRequest } from '../../types/requestTypes';
+import { IFetchQuery } from '../../types/requestTypes';
+import { queryString2 } from '../../redux/handlers/handlers';
+import { setFetchQuery } from '../../redux/data-slice/dataSlice';
 
 interface IProp {
   numIndex: number;
@@ -24,28 +25,27 @@ const PageButtonList = memo((props: IProp) => {
   const currentPageForFavoritePage = useAppSelector(
     (state) => state.paginationStateSlice.currentPageForFavoritePage
   );
-  const user = useAppSelector((state) => state.userSlice.user);
-  const token = useAppSelector((state) => state.userSlice.access_token);
-  const paginationData = useAppSelector((state) => state.paginationStateSlice.paginationFetchQuery);
+
   const [hilightButton, setHiligthButton] = useState<number>(0);
+  const [_, setSearchParams] = useSearchParams();
+  const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
   const createPaginationQueryForFetch = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const paginationQuery: IFetchQueryVacancyRequest = {
-      x_api_app_id: user.client_secret,
-      token,
-      paginationData,
+    const fetchQueryData: IFetchQuery = {
+      ...fetchQuery,
     };
-    paginationQuery.paginationData = {
-      ...paginationQuery.paginationData,
-      page: e.currentTarget.id,
-    };
+
+    fetchQueryData.page = Number(e.currentTarget.id);
 
     location.pathname.includes('favorite') &&
       dispatch(setCurrentPageForFavoritePage(Number(e.currentTarget.id)));
 
     !location.pathname.includes('favorite') && dispatch(setCurrentPage(Number(e.currentTarget.id)));
-    dispatch(setPaginationFetchQuery(paginationQuery.paginationData));
-    dispatch(fetchGetVacancy(paginationQuery));
+
+    dispatch(setFetchQuery(fetchQueryData));
+
+    dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
+    setSearchParams(queryString2(fetchQueryData).trim());
   };
   useEffect(
     () =>
