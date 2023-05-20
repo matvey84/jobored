@@ -27,6 +27,7 @@ const PageButtonList = memo((props: IProp) => {
   );
 
   const [hilightButton, setHiligthButton] = useState<number>(0);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 

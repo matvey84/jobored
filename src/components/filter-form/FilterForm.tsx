@@ -14,6 +14,7 @@ import { fetchGetCatalogues, fetchGetVacancy } from '../../redux/data-slice/data
 
 function FilterForm() {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParam] = useSearchParams();
   const [isResetForm, setIsResetForm] = useState<boolean>(false);
   const [isEmptyField, setIsEmptyField] = useState<string>();

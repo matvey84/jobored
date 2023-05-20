@@ -16,6 +16,7 @@ type searchInput = {
 function MainPageSearchForm() {
   const dispatch = useAppDispatch();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams();
   const [back, setBack] = useState<boolean>(false);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppSelector } from '../redux/hooks';
 import { nanoid } from '@reduxjs/toolkit';
 import IndustrySelectOption from './IndustrySelectOption';

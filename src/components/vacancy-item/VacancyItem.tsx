@@ -3,7 +3,7 @@ import './vacancyItem.scss';
 import LocationPointSVG from '../../ui/LocationPointSVG';
 import AddFavoriteVacancyButton from '../../ui/buttons/AddFavoriteVacancYButton';
 import { IVacansy } from '../../types/vacancyTypes';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 interface IProp {
   data: IVacansy | null;
 }
