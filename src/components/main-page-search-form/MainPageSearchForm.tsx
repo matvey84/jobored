@@ -1,66 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './mainPageSearchForm.scss';
 import SearchFormInputGlass from '../../ui/SearchFormInputGlass';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ISearchQueryParams } from '../../types/requestTypes';
+import { IFetchQuery } from '../../types/requestTypes';
 import { useSearchParams } from 'react-router-dom';
-import { queryString } from '../../redux/handlers/handlers';
+import { queryString2 } from '../../redux/handlers/handlers';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setSearchVacancie } from '../../redux/data-slice/dataSlice';
-import {
-  setCurrentPage,
-  setNumIndex,
-  setPaginationFetchQuery,
-} from '../../redux/paginator-slice/paginationStateSlice';
+import { setFetchQuery } from '../../redux/data-slice/dataSlice';
+import { setCurrentPage, setNumIndex } from '../../redux/paginator-slice/paginationStateSlice';
 type searchInput = {
   searchInput: string;
 };
 
 function MainPageSearchForm() {
   const dispatch = useAppDispatch();
-  const searchVacancie = useAppSelector((state) => state.dataSlice.searchVacancie);
+  const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
   const [_, setSearchParams] = useSearchParams();
+  const [back, setBack] = useState<boolean>(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm<searchInput>({
     mode: 'all',
     defaultValues: {
-      searchInput: !!searchVacancie ? searchVacancie : '',
+      searchInput: fetchQuery?.keyword,
     },
   });
   const searchVacancyHandler: SubmitHandler<searchInput> = (data: searchInput) => {
-    dispatch(setPaginationFetchQuery({ page: 1, count: 20 }));
-
-    const searchQueryParams: ISearchQueryParams = {
+    const fetchQueryData: IFetchQuery = {
+      ...fetchQuery,
+      page: 1,
       keyword: data.searchInput,
-      page: '1',
     };
-    setSearchParams(searchQueryParams);
-    dispatch(setSearchVacancie(searchQueryParams.keyword));
-    dispatch(setCurrentPage(0));
+    const string = queryString2(fetchQueryData);
+    setSearchParams(string);
+    dispatch(setFetchQuery(fetchQueryData));
+    dispatch(setCurrentPage(1));
     dispatch(setNumIndex(0));
-    dispatch(setPaginationFetchQuery({ page: searchQueryParams.page, count: 20 }));
-    dispatch(fetchGetVacancy(queryString(searchQueryParams)));
+    dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
   };
 
+  const backToAllVacancies = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fetchQueryData: IFetchQuery = {
+      ...fetchQuery,
+      page: 1,
+      keyword: '',
+    };
+
+    if (e.currentTarget.value.length < 1 && !!fetchQuery?.keyword) {
+      const string = queryString2(fetchQueryData);
+      setSearchParams(string);
+      dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
+      dispatch(setCurrentPage(1));
+      dispatch(setFetchQuery(fetchQueryData));
+      setBack(true);
+    }
+    setBack(false);
+  };
+  useEffect(() => {
+    back && reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [back, reset]);
   return (
     <form className="main-page_search-form" onSubmit={handleSubmit(searchVacancyHandler)}>
       <SearchFormInputGlass />
       <input
         className={
-          !!errors.searchInput
+          !!errors.searchInput && !back && fetchQuery?.keyword
             ? 'main-page_search-form__input__error'
             : 'main-page_search-form__input'
         }
         data-elem="search-input"
         type="search"
         {...register('searchInput', {
-          validate: (value) => Boolean(value.trim()) || 'Это обязательное',
-          required: 'Упс, это обязательное поле',
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => backToAllVacancies(e),
+          required: true,
           minLength: { value: 3, message: 'Упс, минимум 3 символа' },
         })}
         placeholder="Введите название вакансии"
