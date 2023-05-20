@@ -3,7 +3,7 @@ import './vacancyItem.scss';
 import LocationPointSVG from '../../ui/LocationPointSVG';
 import AddFavoriteVacancyButton from '../../ui/buttons/AddFavoriteVacancYButton';
 import { IVacansy } from '../../types/vacancyTypes';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 interface IProp {
   data: IVacansy | null;
 }
@@ -11,14 +11,20 @@ interface IProp {
 function VacancyItem(props: IProp) {
   const data = props.data;
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
-    <section className="vacancy" id={String(data!.id)} data-elem={`vacancy-${String(data!.id)}`}>
+    <section
+      onClick={() => {
+        !location.pathname.includes(`${data!.id}`) && navigate(`/vacancy/${data!.id}`);
+      }}
+      className="vacancy"
+      id={String(data!.id)}
+      data-elem={`vacancy-${String(data!.id)}`}
+    >
       <article className="vacancy-short-info">
         {!location.pathname.includes(`${data!.id}`) ? (
-          <NavLink to={`/vacancy/${data!.id}`} className="vacancy-title">
-            {data!.profession}
-          </NavLink>
+          <h3 className="vacancy-title">{data!.profession}</h3>
         ) : (
           <h2 className="vacancy-title">{data!.profession}</h2>
         )}
@@ -27,15 +33,19 @@ function VacancyItem(props: IProp) {
           <span className="vacancy-salary">
             {data!.payment_from <= 0 && data!.payment_to <= 0
               ? `з/п не указана`
+              : data!.payment_from <= 0
+              ? null
               : `з/п от ${data!.payment_from} ${data!.currency}`}
           </span>
-          {data!.payment_to <= 0 ? '' : <b>-</b>}
+          {data!.payment_to <= 0 || data!.payment_from <= 0 ? '' : <b>-</b>}
           <span className="vacancy-salary">
-            {data!.payment_to <= 0
-              ? ''
-              : data!.payment_from <= 0 && data!.payment_to <= 0
-              ? ''
-              : `${data!.payment_to} ${data!.currency}`}
+            {data!.payment_from <= 0 && data!.payment_to <= 0
+              ? null
+              : data!.payment_from <= 0
+              ? `з/п до ${data!.payment_to} ${data!.currency}`
+              : data!.payment_to <= 0
+              ? null
+              : `до ${data!.payment_to} ${data!.currency}`}
           </span>
           <b>&bull;</b>
           <span className="vacancy-working-mode">{data!.type_of_work.title}</span>
