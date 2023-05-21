@@ -79,7 +79,11 @@ function MainPageSearchForm() {
         })}
         placeholder="Введите название вакансии"
       />
-      <button className="main-page_search-form__submit-button" disabled={!isValid}>
+      <button
+        className="main-page_search-form__submit-button"
+        data-elem="search-button"
+        disabled={!isValid}
+      >
         Поиск
       </button>
     </form>

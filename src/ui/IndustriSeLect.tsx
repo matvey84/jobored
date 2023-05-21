@@ -26,6 +26,7 @@ const IndustriSeLect = React.forwardRef(
           onChange={onChange}
           onBlur={onBlur}
           className="filter-form_select-industry"
+          data-elem="industry-select"
           defaultValue=""
         >
           <option className="select-industry_option" disabled value="">

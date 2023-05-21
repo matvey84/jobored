@@ -91,6 +91,7 @@ function FilterForm() {
           onChange={paymentFrom.onChange}
           onBlur={paymentFrom.onBlur}
           required={paymentFrom.required!}
+          testAtribute={'salary-from-input'}
         />
         <PaymentInput
           id={'payment_to'}
@@ -100,10 +101,11 @@ function FilterForm() {
           onChange={paymentTo.onChange}
           onBlur={paymentTo.onBlur}
           required={paymentTo.required!}
+          testAtribute={'salary-to-input'}
         />
       </section>
 
-      <button disabled={!isDirty} className="filter-form__filter-button">
+      <button disabled={!isDirty} className="filter-form__filter-button" data-elem="search-button">
         Применить
       </button>
     </form>

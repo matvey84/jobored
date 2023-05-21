@@ -6,10 +6,11 @@ interface IProp {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   required: boolean;
+  testAtribute: string;
 }
 const PaymentInput = React.forwardRef(
   (props: IProp, ref: React.LegacyRef<HTMLInputElement> | undefined) => {
-    const { id, placeholder, name, onChange, onBlur } = props;
+    const { id, placeholder, name, onChange, onBlur, testAtribute } = props;
     return (
       <>
         <input
@@ -23,6 +24,7 @@ const PaymentInput = React.forwardRef(
           onBlur={onBlur}
           className="filter-form_payment_input"
           placeholder={placeholder}
+          data-elem={testAtribute}
         />
       </>
     );
