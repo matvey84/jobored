@@ -7,9 +7,9 @@ import { fetchLogin } from './redux/user-slice/userFetchRequest';
 
 function App() {
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state) => state.userSlice.access_token);
+  const ttl = useAppSelector((state) => state.userSlice.ttl);
   useEffect(() => {
-    !token && dispatch(fetchLogin(USER));
+    ttl * 1000 < Date.now() && dispatch(fetchLogin(USER));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
