@@ -25,65 +25,9 @@
     min-width: 216px;
     height: 21px;
     margin-left: -16px;
-  }
-  .main-page_search-form__input:focus {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: none;
-    outline: 1px solid #5E96FC;
-    border-radius: 5px;
-    padding-left: 20px;
-    gap: 8px;
-    width: 88.05%;
-    min-width: 216px;
-    height: 21px;
-    margin-left: -16px;
-  }
-
-  .main-page_search-form__input__error {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid red;
-    border: none;
-    border-radius: 5px;
-    padding-left: 20px;
-    gap: 8px;
-    width: 88.05%;
-    min-width: 216px;
-    height: 21px;
-    margin-left: -16px;
-  }
-  .main-page_search-form__input__error:focus {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    outline: 1px solid red;
-    border: none;
-    border-radius: 5px;
-    padding-left: 20px;
-    gap: 8px;
-    width: 88.05%;
-    min-width: 216px;
-    height: 21px;
-    margin-left: -16px;
-  }
-  .error-message {
-    display: none;
-    transform: scale(0);
-    transition: ease .5;
-  }
-  .error-message_show {
-    position: absolute;
-    top: 36px;
-    color: red;
-    width: auto;
-    transform: scale(1);
-    transition: ease .5;
-    margin: 0px;
-    line-height: 10px;
-    font-size: 13px;
+    &:focus {
+      outline: 1px solid #5E96FC;
+    }
   }
 
   .search-form-input-glass {
@@ -111,71 +55,18 @@
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
+    &:hover {
+      background: #92C1FF;
+    }
+    &:active {
+      background: #3B7CD3;
+    }
+    &:disabled,
+    &:disabled:hover {
+      background: #ACADB9;
+      cursor: default;
+    }
   }
-}
-.main-page_search-form__submit-button:hover {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
-  margin-left: 5px;
-  width: 83px;
-  height: 32px;
-  background: #92C1FF;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  text-align: center;
-  color: #FFFFFF;
-  cursor: pointer;
-}
-.main-page_search-form__submit-button:active {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
-  margin-left: 5px;
-  width: 83px;
-  height: 32px;
-  background: #3B7CD3;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  text-align: center;
-  color: #FFFFFF;
-  cursor: pointer;
-}
-
-.main-page_search-form__submit-button:disabled,
-.main-page_search-form__submit-button:disabled:hover{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 20px;
-  margin-left: 5px;
-  width: 83px;
-  height: 32px;
-  background: #ACADB9;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  text-align: center;
-  color: #FFFFFF;
 }
 
 

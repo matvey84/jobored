@@ -18,7 +18,7 @@ const AddFavoriteVacancyButton = (props: IProp) => {
     <button
       id={props.id}
       className="add-favorite-vacancy-button"
-      data-elem="vacancy-_vacancy_id_-shortlist-button"
+      data-elem={`vacancy-${props.id}-shortlist-button`}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => addFavoriteVacancyButtonHandler(e)}
     >
       <StarSVG id={props.id} />

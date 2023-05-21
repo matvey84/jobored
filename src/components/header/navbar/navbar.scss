@@ -13,15 +13,27 @@
   order: 2;
   flex-grow: 0;
   z-index: 0;
-  .header_navbar__link {
+  .header_navbar_link {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
     color: #232134;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    text-decoration: none;
+    
+    &:active,
+    &:hover {
+      font-weight: 500;
+      color: #5E96FC;
+    }
+  }
+  .header_navbar_link__active {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #5E96FC;
     text-decoration: none;
   }
 }

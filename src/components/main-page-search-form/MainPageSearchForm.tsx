@@ -24,7 +24,7 @@ function MainPageSearchForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm<searchInput>({
     mode: 'all',
     defaultValues: {
@@ -60,7 +60,6 @@ function MainPageSearchForm() {
       dispatch(setFetchQuery(fetchQueryData));
       setBack(true);
     }
-    setBack(false);
   };
   useEffect(() => {
     back && reset();
@@ -70,24 +69,21 @@ function MainPageSearchForm() {
     <form className="main-page_search-form" onSubmit={handleSubmit(searchVacancyHandler)}>
       <SearchFormInputGlass />
       <input
-        className={
-          !!errors.searchInput && !back && fetchQuery?.keyword
-            ? 'main-page_search-form__input__error'
-            : 'main-page_search-form__input'
-        }
+        className="main-page_search-form__input"
         data-elem="search-input"
         type="search"
         {...register('searchInput', {
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => backToAllVacancies(e),
           required: true,
-          minLength: { value: 3, message: 'Упс, минимум 3 символа' },
+          minLength: 1, //{ value: 1, message: 'Упс, минимум 3 символа' },
         })}
         placeholder="Введите название вакансии"
       />
-      <h5 className={!!errors.searchInput ? 'error-message_show' : 'error-message'}>
-        {!!errors.searchInput ? errors.searchInput.message : ''}
-      </h5>
-      <button className="main-page_search-form__submit-button" disabled={!isValid}>
+      <button
+        className="main-page_search-form__submit-button"
+        data-elem="search-button"
+        disabled={!isValid}
+      >
         Поиск
       </button>
     </form>

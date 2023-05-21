@@ -17,29 +17,25 @@ function FilterForm() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParam] = useSearchParams();
   const [isResetForm, setIsResetForm] = useState<boolean>(false);
-  const [isEmptyField, setIsEmptyField] = useState<string>();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
-  const { register, handleSubmit, reset } = useForm<IFilterFormData>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<IFilterFormData>({
     mode: 'all',
   });
-  const onChangeInputHandler = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setIsResetForm(false);
-    setIsEmptyField(e.currentTarget.value);
-  };
+
   const industrySelect = register('catalogues', {
     required: false,
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => onChangeInputHandler(e),
   });
   const paymentFrom = register('payment_from', {
-    required: true,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => onChangeInputHandler(e), //setIsResetForm(false),
+    required: false,
   });
   const paymentTo = register('payment_to', {
-    required: true,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => onChangeInputHandler(e),
+    required: false,
   });
 
   const filterFormHandler: SubmitHandler<IFilterFormData> = (data: IFilterFormData) => {
@@ -63,7 +59,6 @@ function FilterForm() {
 
   useEffect(() => {
     isResetForm && reset();
-    isResetForm && setIsEmptyField('');
   }, [isResetForm, reset]);
 
   return (
@@ -96,6 +91,7 @@ function FilterForm() {
           onChange={paymentFrom.onChange}
           onBlur={paymentFrom.onBlur}
           required={paymentFrom.required!}
+          testAtribute={'salary-from-input'}
         />
         <PaymentInput
           id={'payment_to'}
@@ -105,10 +101,11 @@ function FilterForm() {
           onChange={paymentTo.onChange}
           onBlur={paymentTo.onBlur}
           required={paymentTo.required!}
+          testAtribute={'salary-to-input'}
         />
       </section>
 
-      <button disabled={!isEmptyField} className="filter-form__filter-button">
+      <button disabled={!isDirty} className="filter-form__filter-button" data-elem="search-button">
         Применить
       </button>
     </form>

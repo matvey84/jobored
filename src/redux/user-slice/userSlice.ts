@@ -1,5 +1,4 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from '../../types/types';
 import { USER } from '../../endpoints/mocUser';
 import { IUserState } from '../../types/sliceTypes';
 import { fetchLogin } from './userFetchRequest';
@@ -8,6 +7,7 @@ export const initFormState: IUserState = {
   user: USER,
   access_token: '',
   refresh_token: '',
+  ttl: 0,
   error: '',
   isSignIn: false,
   spinnerStatus: false,
@@ -16,29 +16,7 @@ export const initFormState: IUserState = {
 export const userSlice = createSlice({
   name: 'userData',
   initialState: initFormState,
-  reducers: {
-    setUserData(state, action: PayloadAction<IUser>) {
-      state.user = action.payload;
-    },
-    setUserToken(state, action: PayloadAction<string>) {
-      state.access_token = action.payload;
-    },
-    setUserName(state, action: PayloadAction<string>) {
-      state.user.login = action.payload;
-    },
-    setUserId(state, action: PayloadAction<string>) {
-      state.user.login = action.payload;
-    },
-    setError(state, action: PayloadAction<string>) {
-      state.error = action.payload;
-    },
-    setSignInStatus(state, action: PayloadAction<boolean>) {
-      state.isSignIn = action.payload;
-    },
-    setSpinnerStatus(state, action: PayloadAction<boolean>) {
-      state.spinnerStatus = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchLogin.pending, (state) => {
@@ -59,7 +37,9 @@ export const userSlice = createSlice({
       });
   },
 });
-export const { setUserData, setUserToken, setSignInStatus, setSpinnerStatus } = userSlice.actions;
+
+// eslint-disable-next-line no-empty-pattern
+export const {} = userSlice.actions;
 
 export default userSlice.reducer;
 

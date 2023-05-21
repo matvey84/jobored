@@ -62,21 +62,6 @@ const PaginationArrowButton = (props: IProp) => {
     setSearchParams(queryString2(fetchQueryData));
   };
 
-  // useEffect(() => {
-  //   setDisabledLeftArrow(firstAndLastPaginationPages.firstPaginationPage - 1 <= 1);
-  //   setDisabledRightArrow(
-  //     (firstAndLastPaginationPages.lastPaginationPage - 1) * Number(pageCounter) >=
-  //       totalVacancies - Number(pageCounter)
-  //   );
-  // }, [
-  //   totalVacancies,
-  //   firstAndLastPaginationPages.lastPaginationPage,
-  //   location.pathname,
-  //   numIndex,
-  //   pageCounter,
-  //   firstAndLastPaginationPages.firstPaginationPage,
-  // ]);
-
   return (
     <button
       className={`btn-arrow ${contexClass}`}
