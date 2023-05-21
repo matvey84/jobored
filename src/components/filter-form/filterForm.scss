@@ -134,7 +134,7 @@
   &:disabled,
   &:disabled:hover {
     background: #ACADB9;
-    cursor: none;
+    cursor: default;
   }
   
 }
@@ -171,18 +171,14 @@
       line-height: 20px;
       color: #232134;
 
-      &[disabled] {
+      &:disabled {
         visibility: hidden;
         height: 0px;
       }
 
       &:hover {
         background: #DEECFF;
-      }
-
-      &:checked{
-        background: #5E96FC;
-        color: #FFFFFF;
+        cursor: pointer;
       }
     }
   }
