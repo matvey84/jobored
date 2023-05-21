@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PaginationArrowSVG from '../PaginationArrowSVG';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
@@ -16,8 +16,6 @@ interface IProp {
   id: string;
   contexClass: string;
   numIndex: number;
-  // pagesAmmount: number;
-  // totalVacancies: number;
   disabled: boolean;
 }
 const PaginationArrowButton = (props: IProp) => {
@@ -25,12 +23,10 @@ const PaginationArrowButton = (props: IProp) => {
 
   const dispatch = useAppDispatch();
   const location = useLocation();
-  // const pageCounter = useAppSelector((state) => state.dataSlice.pageCount);
-  // const [disabledLeftArrow, setDisabledLeftArrow] = useState<boolean>(true);
-  // const [disabledRightArrow, setDisabledRightArrow] = useState<boolean>(false);
   const firstAndLastPaginationPages = useAppSelector(
     (state) => state.paginationStateSlice.firstAndLastPaginationPages
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
@@ -65,21 +61,6 @@ const PaginationArrowButton = (props: IProp) => {
 
     setSearchParams(queryString2(fetchQueryData));
   };
-
-  // useEffect(() => {
-  //   setDisabledLeftArrow(firstAndLastPaginationPages.firstPaginationPage - 1 <= 1);
-  //   setDisabledRightArrow(
-  //     (firstAndLastPaginationPages.lastPaginationPage - 1) * Number(pageCounter) >=
-  //       totalVacancies - Number(pageCounter)
-  //   );
-  // }, [
-  //   totalVacancies,
-  //   firstAndLastPaginationPages.lastPaginationPage,
-  //   location.pathname,
-  //   numIndex,
-  //   pageCounter,
-  //   firstAndLastPaginationPages.firstPaginationPage,
-  // ]);
 
   return (
     <button

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './BackToVacancyButton ';
 import ResetButtonSVG from '../ResetButtonSVG';
 import { IFetchQuery } from '../../types/requestTypes';
@@ -12,6 +12,7 @@ interface IProp {
 }
 const ResetButton = (props: IProp) => {
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParam] = useSearchParams();
   const { setIsResetForm } = props;
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);

@@ -75,7 +75,6 @@ export const fetchGetCatalogues = createAsyncThunk<ICatalogues[], string, { reje
     }
 
     const catalogues: ICatalogues[] = await response.json();
-    console.log(catalogues);
     return catalogues;
   }
 );

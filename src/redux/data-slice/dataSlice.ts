@@ -59,7 +59,6 @@ export const dataSlice = createSlice({
       state.searchVacancie = action.payload;
     },
     setFetchQuery(state, action: PayloadAction<IFetchQuery | null>) {
-      console.log(action.payload);
       state.fetchQuery = action.payload;
     },
   },

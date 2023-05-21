@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppSelector } from '../redux/hooks';
 import { nanoid } from '@reduxjs/toolkit';
 import IndustrySelectOption from './IndustrySelectOption';
@@ -26,7 +26,6 @@ const IndustriSeLect = React.forwardRef(
           onChange={onChange}
           onBlur={onBlur}
           className="filter-form_select-industry"
-          // size={5}
           defaultValue=""
         >
           <option className="select-industry_option" disabled value="">
