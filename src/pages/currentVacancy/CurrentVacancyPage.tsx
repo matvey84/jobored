@@ -26,7 +26,7 @@ function CurrentVacancyPage() {
     <section className="page current-vacancy-page">
       {!spinnerStatus ? (
         <>
-          <div className="container current-vacancy-page-container">
+          <div className="current-vacancy-page-container">
             <VacancyItem data={currentVacancy!} />
             {!!currentVacancy!.vacancyRichText ? (
               <section

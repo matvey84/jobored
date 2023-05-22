@@ -44,7 +44,7 @@ function FavoriteVacancyPage() {
 
   return (
     <section className="page favorite-vacancy-page">
-      <div className="container favorite-vacancy-page-container">
+      <div className="favorite-vacancy-page-container">
         {spinnerStatus && <Loader />}
         {!spinnerStatus && (
           <VacancyList vacancyData={curentPageVacancyData} spinnerStatus={spinnerStatus} />

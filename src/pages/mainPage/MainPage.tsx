@@ -50,7 +50,7 @@ function MainPage() {
 
   return (
     <section className="page main-page">
-      <div className="container main-page_container">
+      <div className="main-page_container">
         <FilterForm />
         <section className="main-page_vacancy-block">
           {spinnerStatus && <Loader />}

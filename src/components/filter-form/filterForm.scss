@@ -84,15 +84,13 @@
     }
   }
 
-  #payment_from {
+  #payment_from,
+  .filter-form_select-industry {
     margin-bottom: 20px;
   }
 
   .filter-form_payment_input:last-child {
     margin-bottom: 10px;
-  }
-  .filter-form_select-industry {
-    margin-bottom: 20px;
   }
 
   .filter-form_title {
@@ -136,7 +134,6 @@
     background: #ACADB9;
     cursor: default;
   }
-  
 }
 
 .filter-form_select-industry {
@@ -183,20 +180,67 @@
     }
   }
 
-  .filter-form_select-industry::-webkit-scrollbar {
-    width: 0px;
-  }
-  .filter-form_select-industry:hover::-webkit-scrollbar {
-    width: 4px;
-  }
-  .filter-form_select-industry::-webkit-scrollbar-thumb {
-    width: 4px;
-    height: 24px;
-    background-color: transparent;
-    border-radius: 20px;
-  }
+.filter-form_select-industry::-webkit-scrollbar {
+  width: 0px;
+}
+.filter-form_select-industry:hover::-webkit-scrollbar {
+  width: 4px;
+}
+.filter-form_select-industry::-webkit-scrollbar-thumb {
+  width: 4px;
+  height: 24px;
+  background-color: transparent;
+  border-radius: 20px;
+}
 
-  .filter-form_select-industry:hover::-webkit-scrollbar-thumb {
-    box-shadow: inset 1px 1px 5px #ACADB9;
-    border: 1px solid #ACADB9;
+.filter-form_select-industry:hover::-webkit-scrollbar-thumb {
+  box-shadow: inset 1px 1px 5px #acadb9;
+  border: 1px solid #acadb9;
+}
+
+@media (max-width: 1130px) and (min-width: 823px) {
+  .filter-form {
+    width: 100%;
+    max-width: 813px;
   }
+  .filter-form_title-block {
+    width: 100%;
+    margin-bottom: 15px;
+    border-bottom: .5px solid #7B7C88;
+  }
+  .filter-form_input-block {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    height: 75px;
+
+    .filter-form_select-industry,
+    .filter-form_payment_input {
+      padding: 8px 12px;
+      width: 33%;
+      margin-top: 25px ;
+    }
+
+    label.filter-form_title {
+      position: absolute;
+      top: 1px;
+      margin-bottom: 0px;
+      &[for=payment_from]{
+        left: 33.5%;
+      }
+    }
+
+    #payment_from,
+    .filter-form_select-industry {
+      margin-bottom: 5px;
+    }
+
+    .filter-form_payment_input:last-child {
+      margin-bottom: 5px;
+    }
+  }
+}

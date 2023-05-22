@@ -43,3 +43,12 @@
   }
 }
 
+@media (max-width: 1130px) and (min-width: 823px) {
+  .header {
+    .header-container {
+    width: 100%;
+    max-width: 813px;
+    }
+  }
+}
+
