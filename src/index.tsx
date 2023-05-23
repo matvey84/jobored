@@ -12,7 +12,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/jobored-test">
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
