@@ -24,10 +24,10 @@ function CurrentVacancyPage() {
 
   return (
     <section className="page current-vacancy-page">
-      {!spinnerStatus ? (
+      {!spinnerStatus && !!currentVacancy ? (
         <>
           <div className="current-vacancy-page-container">
-            {!!currentVacancy! ? <VacancyItem data={currentVacancy!} /> : <></>}
+            <VacancyItem data={currentVacancy!} />
             {!!currentVacancy!.vacancyRichText ? (
               <section
                 dangerouslySetInnerHTML={createMarkup()}
