@@ -88,3 +88,8 @@
   font-weight: 400;
 }
 
+@media (max-width: 1130px) and (min-width: 823px) {
+  .vacancy {
+    max-width: 100%;
+  }
+}
