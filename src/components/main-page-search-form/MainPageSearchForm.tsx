@@ -24,6 +24,7 @@ function MainPageSearchForm() {
     register,
     handleSubmit,
     reset,
+    setFocus,
     formState: { isValid },
   } = useForm<searchInput>({
     mode: 'all',
@@ -61,9 +62,13 @@ function MainPageSearchForm() {
       setBack(true);
     }
   };
+  useEffect(
+    () => setFocus('searchInput'),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
   useEffect(() => {
     back && reset();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [back, reset]);
   return (
     <form className="main-page_search-form" onSubmit={handleSubmit(searchVacancyHandler)}>
