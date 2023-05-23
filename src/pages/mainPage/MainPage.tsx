@@ -10,29 +10,25 @@ import { setFirstAndLastPaginationPages } from '../../redux/paginator-slice/pagi
 import Loader from '../../components/loader/Loader';
 import { createAllButtonsNumberNote, queryString2 } from '../../redux/handlers/handlers';
 import FilterForm from '../../components/filter-form/FilterForm';
-import { useLocation } from 'react-router-dom';
 
 function MainPage() {
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const spinnerStatus = useAppSelector((state) => state.dataSlice.spinnerStatus);
   const vacancyData = useAppSelector((state) => state.dataSlice.data);
   const totalVacancies = useAppSelector((state) => state.dataSlice.totalVacancies);
   const numIndex = useAppSelector((state) => state.paginationStateSlice.numIndex);
   const pagesAmmount = useAppSelector((state) => state.dataSlice.pagesAmount);
+  const fetchQueryData = useAppSelector((state) => state.dataSlice.fetchQuery);
 
   useEffect(() => {
-    const fetchQueryData: IFetchQuery = {
+    const fetchQueryMoc: IFetchQuery = {
       published: 1,
       page: 1,
       keyword: '',
-      catalogues: '',
-      payment_from: 0,
-      payment_to: 0,
     };
-    !!location.search
-      ? dispatch(fetchGetVacancy(location.search))
-      : dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
+    !!fetchQueryData
+      ? dispatch(fetchGetVacancy(queryString2(fetchQueryData)))
+      : dispatch(fetchGetVacancy(queryString2(fetchQueryMoc)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

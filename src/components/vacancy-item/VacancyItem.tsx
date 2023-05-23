@@ -23,12 +23,7 @@ function VacancyItem(props: IProp) {
       data-elem={`vacancy-${String(data!.id)}`}
     >
       <article className="vacancy-short-info">
-        {!location.pathname.includes(`${data!.id}`) ? (
-          <h3 className="vacancy-title">{data!.profession}</h3>
-        ) : (
-          <h2 className="vacancy-title">{data!.profession}</h2>
-        )}
-
+        <h3 className="vacancy-title">{data!.profession}</h3>
         <section className="vacancy-offers">
           <span className="vacancy-salary">
             {data!.payment_from <= 0 && data!.payment_to <= 0

@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import React, { memo, useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
@@ -27,8 +27,6 @@ const PageButtonList = memo((props: IProp) => {
   );
 
   const [hilightButton, setHiligthButton] = useState<number>(0);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
   const createPaginationQueryForFetch = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,7 +44,6 @@ const PageButtonList = memo((props: IProp) => {
     dispatch(setFetchQuery(fetchQueryData));
 
     dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
-    setSearchParams(queryString2(fetchQueryData).trim());
   };
   useEffect(
     () =>

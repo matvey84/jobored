@@ -1,6 +1,6 @@
 import React from 'react';
 import PaginationArrowSVG from '../PaginationArrowSVG';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { setFetchQuery } from '../../redux/data-slice/dataSlice';
 import { queryString2 } from '../../redux/handlers/handlers';
@@ -26,8 +26,6 @@ const PaginationArrowButton = (props: IProp) => {
   const firstAndLastPaginationPages = useAppSelector(
     (state) => state.paginationStateSlice.firstAndLastPaginationPages
   );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
   const arrowButtonHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,8 +56,6 @@ const PaginationArrowButton = (props: IProp) => {
     location.pathname.includes('favorite')
       ? dispatch(setCurrentPageForFavoritePage(Number(fetchQueryData.page)))
       : dispatch(setCurrentPage(Number(fetchQueryData.page)));
-
-    setSearchParams(queryString2(fetchQueryData));
   };
 
   return (

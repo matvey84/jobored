@@ -3,7 +3,6 @@ import './mainPageSearchForm.scss';
 import SearchFormInputGlass from '../../ui/SearchFormInputGlass';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IFetchQuery } from '../../types/requestTypes';
-import { useSearchParams } from 'react-router-dom';
 import { queryString2 } from '../../redux/handlers/handlers';
 import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -16,8 +15,6 @@ type searchInput = {
 function MainPageSearchForm() {
   const dispatch = useAppDispatch();
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
   const [back, setBack] = useState<boolean>(false);
 
   const {
@@ -37,8 +34,6 @@ function MainPageSearchForm() {
       page: 1,
       keyword: data.searchInput,
     };
-    const string = queryString2(fetchQueryData);
-    setSearchParams(string);
     dispatch(setFetchQuery(fetchQueryData));
     dispatch(setCurrentPage(1));
     dispatch(setNumIndex(0));
@@ -53,8 +48,6 @@ function MainPageSearchForm() {
     };
 
     if (e.currentTarget.value.length < 1 && !!fetchQuery?.keyword) {
-      const string = queryString2(fetchQueryData);
-      setSearchParams(string);
       dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
       dispatch(setCurrentPage(1));
       dispatch(setFetchQuery(fetchQueryData));

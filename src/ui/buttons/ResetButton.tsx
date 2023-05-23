@@ -6,14 +6,12 @@ import { fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 import { setFetchQuery } from '../../redux/data-slice/dataSlice';
 import { queryString2 } from '../../redux/handlers/handlers';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useSearchParams } from 'react-router-dom';
 interface IProp {
   setIsResetForm: (arg: boolean) => void;
 }
 const ResetButton = (props: IProp) => {
   const dispatch = useAppDispatch();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParam] = useSearchParams();
   const { setIsResetForm } = props;
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
@@ -27,9 +25,7 @@ const ResetButton = (props: IProp) => {
       payment_to: 0,
     };
     setIsResetForm(true);
-    const string = queryString2(fetchQueryData);
-    setSearchParam(string);
-    dispatch(fetchGetVacancy(string));
+    dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
     dispatch(setFetchQuery(fetchQueryData));
   };
   return (
