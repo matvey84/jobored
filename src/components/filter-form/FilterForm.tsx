@@ -9,13 +9,11 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { queryString2 } from '../../redux/handlers/handlers';
 import { setFetchQuery } from '../../redux/data-slice/dataSlice';
-import { useSearchParams } from 'react-router-dom';
 import { fetchGetCatalogues, fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
 
 function FilterForm() {
   const dispatch = useAppDispatch();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParam] = useSearchParams();
+
   const [isResetForm, setIsResetForm] = useState<boolean>(false);
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
 
@@ -46,9 +44,7 @@ function FilterForm() {
       ...data,
     };
     dispatch(setFetchQuery(fetchQueryData));
-    const string = queryString2(fetchQueryData);
-    setSearchParam(string);
-    dispatch(fetchGetVacancy(string));
+    dispatch(fetchGetVacancy(queryString2(fetchQueryData)));
     setIsResetForm(false);
   };
 
