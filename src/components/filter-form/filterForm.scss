@@ -198,11 +198,12 @@
   border: 1px solid #acadb9;
 }
 
-@media (max-width: 1130px) and (min-width: 823px) {
+@media (max-width: 1130px) and (min-width: 768px) {
   .filter-form {
     width: 100%;
     max-width: 813px;
   }
+  
   .filter-form_title-block {
     width: 100%;
     margin-bottom: 15px;
@@ -244,3 +245,34 @@
     }
   }
 }
+
+@media (max-width: 767px) and (min-width: 315px) {
+  .filter-form {
+    flex-direction: column;
+    width: 100%;
+    min-width: 315px;
+    height: 360px;
+
+    .filter-form_title-block {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  }
+
+  .filter-form_input-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+  
+    .filter-form_select-industry,
+    .filter-form_payment_input {
+      max-width: 100%;
+    }
+  }
+
+  
+  }
+

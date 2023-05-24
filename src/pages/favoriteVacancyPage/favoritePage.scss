@@ -20,7 +20,7 @@
     .main-page_vacancy-list {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
       width: 100%;
       height: auto;
       padding: 0px;
@@ -53,10 +53,34 @@
       max-width: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      height: 596px;
-      .main-page_vacancy-list {
+      .main-page_vacancy-list{
         width: 100%;
       }
     }
   }
 }
+
+@media (max-width: 822px) and (min-width: 315px) {
+  .favorite-vacancy-page-container {
+    // position: relative;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    // align-items: center;
+    width: 95%;
+    max-width: 813px;
+    // padding-top: 5px;
+    // gap: 10px;
+       .vacancy-list__wrapper {
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 596px;
+  
+        .main-page_vacancy-list {
+          width: 100%;
+        }
+      }
+      
+    }
+  }

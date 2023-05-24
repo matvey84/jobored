@@ -57,14 +57,14 @@
   box-shadow: inset 1px 1px 5px #5E96FC;
   border: 1px solid #5E96FC;
 }
-@media (max-width: 1130px) and (min-width: 823px) {
+@media (max-width: 1130px) and (min-width: 315px) {
   .main-page_container {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    width: 95%;
     max-width: 813px;
     padding-top: 5px;
     gap: 10px;
