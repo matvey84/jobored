@@ -5,7 +5,7 @@
   .header-container {
     position: relative;
     display: flex;
-    width: 100%;
+    width: 95%;
     max-width: 1116px;
     height: 100%;
     margin: 0 auto;
@@ -43,10 +43,10 @@
   }
 }
 
-@media (max-width: 1130px) and (min-width: 823px) {
+@media (max-width: 1130px) and (min-width: 315px) {
   .header {
     .header-container {
-    width: 100%;
+    width: 95%;
     max-width: 813px;
     }
   }

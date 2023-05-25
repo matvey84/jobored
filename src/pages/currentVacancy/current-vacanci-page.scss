@@ -64,3 +64,10 @@
     width: 100%;
   }
 }
+
+@media (max-width: 1130px) and (min-width: 315px) {
+  .current-vacancy-page-container {
+    width: 95%;
+    max-width: 813px;
+  }
+}

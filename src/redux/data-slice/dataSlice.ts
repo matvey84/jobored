@@ -17,6 +17,7 @@ interface IDataState {
   error: string;
   spinnerStatus: boolean;
   searchVacancie: string;
+  isFormOpen: boolean;
 }
 
 const initFormState: IDataState = {
@@ -33,6 +34,7 @@ const initFormState: IDataState = {
   error: '',
   spinnerStatus: false,
   searchVacancie: '',
+  isFormOpen: false,
 };
 
 export const dataSlice = createSlice({
@@ -60,6 +62,9 @@ export const dataSlice = createSlice({
     },
     setFetchQuery(state, action: PayloadAction<IFetchQuery | null>) {
       state.fetchQuery = action.payload;
+    },
+    setOpenForm(state, action: PayloadAction<boolean>) {
+      state.isFormOpen = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +101,8 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { setFavoriteVacancy, setSearchVacancie, setFetchQuery } = dataSlice.actions;
+export const { setFavoriteVacancy, setSearchVacancie, setFetchQuery, setOpenForm } =
+  dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {

@@ -1,4 +1,5 @@
 .filter-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -8,6 +9,7 @@
   background: #FFFFFF;
   border: 1px solid #EAEBED;
   border-radius: 12px;
+  transition: 0.5s all;
 }
 
 .filter-form_title-block {
@@ -247,32 +249,58 @@
 }
 
 @media (max-width: 767px) and (min-width: 315px) {
-  .filter-form {
-    flex-direction: column;
-    width: 100%;
-    min-width: 315px;
-    height: 360px;
-
-    .filter-form_title-block {
+    .filter-form {
+      flex-direction: column;
       width: 100%;
-      margin-bottom: 15px;
-    }
-  }
+      min-width: 315px;
+      height: 360px;
+      padding-bottom: 25px;
 
-  .filter-form_input-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 100%;
-  
-    .filter-form_select-industry,
-    .filter-form_payment_input {
+      .filter-form_title-block {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      &_close {
+        position: relative;
+        width: 100%;
+        height: 60px;
+        background: #FFFFFF;
+        border: 1px solid #EAEBED;
+        border-radius: 12px;
+        padding: 20px;
+        transition: .5s ease .1s;
+
+        .filter-form_title-block {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+
+        .filter-form_input-block {
+          visibility: hidden;
+          transition: .4s ease;
+          transform: scale(0);
+        }
+        .filter-form__filter-button {
+          display: none;
+          transition: .4s ease;
+          transform: scale(0);
+        }
+      }
+    }
+
+    .filter-form_input-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
       max-width: 100%;
+    
+      .filter-form_select-industry,
+      .filter-form_payment_input {
+        max-width: 100%;
+      }
     }
-  }
-
-  
   }
 

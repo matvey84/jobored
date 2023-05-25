@@ -11,6 +11,7 @@ import { queryString2 } from '../../redux/handlers/handlers';
 import { setFetchQuery } from '../../redux/data-slice/dataSlice';
 import { useSearchParams } from 'react-router-dom';
 import { fetchGetCatalogues, fetchGetVacancy } from '../../redux/data-slice/dataFetchRequest';
+import OpenFormButton from '../../ui/buttons/OpenFormButton';
 
 function FilterForm() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function FilterForm() {
   const [_, setSearchParam] = useSearchParams();
   const [isResetForm, setIsResetForm] = useState<boolean>(false);
   const fetchQuery = useAppSelector((state) => state.dataSlice.fetchQuery);
+  const isFormOpen = useAppSelector((state) => state.dataSlice.isFormOpen);
 
   const {
     register,
@@ -62,15 +64,22 @@ function FilterForm() {
   }, [isResetForm, reset]);
 
   return (
-    <form className="filter-form" onSubmit={handleSubmit(filterFormHandler)}>
+    <form
+      className={`filter-form${isFormOpen ? '' : '_close'}`}
+      onSubmit={handleSubmit(filterFormHandler)}
+    >
       <div className="filter-form_title-block">
         <h3 className="filter-form_title">Фильтры</h3>
-        <div className="filter-form_reset-button-block">
-          <label htmlFor="reset-button" className="filter-form_reset-button_label">
-            Сбросить все
-          </label>
-          <ResetButton setIsResetForm={setIsResetForm} />
-        </div>
+        {isFormOpen ? (
+          <div className="filter-form_reset-button-block">
+            <label htmlFor="reset-button" className="filter-form_reset-button_label">
+              Сбросить все
+            </label>
+            <ResetButton setIsResetForm={setIsResetForm} />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <section className="filter-form_input-block">
         <IndustriSeLect
@@ -108,6 +117,7 @@ function FilterForm() {
       <button disabled={!isDirty} className="filter-form__filter-button" data-elem="search-button">
         Применить
       </button>
+      <OpenFormButton />
     </form>
   );
 }
