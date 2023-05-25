@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/jobored-test/static/css/main.526ed5a2.css",
-    "main.js": "/jobored-test/static/js/main.d65d0d93.js",
+    "main.js": "/jobored-test/static/js/main.0b58ab48.js",
     "static/css/302.e13e7728.chunk.css": "/jobored-test/static/css/302.e13e7728.chunk.css",
-    "static/js/302.3b09ad42.chunk.js": "/jobored-test/static/js/302.3b09ad42.chunk.js",
+    "static/js/302.158dcdb0.chunk.js": "/jobored-test/static/js/302.158dcdb0.chunk.js",
     "static/css/171.ac8c651a.chunk.css": "/jobored-test/static/css/171.ac8c651a.chunk.css",
-    "static/js/171.f9c30625.chunk.js": "/jobored-test/static/js/171.f9c30625.chunk.js",
+    "static/js/171.65e3a97a.chunk.js": "/jobored-test/static/js/171.65e3a97a.chunk.js",
     "static/css/557.29feb10f.chunk.css": "/jobored-test/static/css/557.29feb10f.chunk.css",
-    "static/js/557.15423283.chunk.js": "/jobored-test/static/js/557.15423283.chunk.js",
+    "static/js/557.9a54bceb.chunk.js": "/jobored-test/static/js/557.9a54bceb.chunk.js",
     "static/css/661.68800c8b.chunk.css": "/jobored-test/static/css/661.68800c8b.chunk.css",
     "static/js/661.d01a47d4.chunk.js": "/jobored-test/static/js/661.d01a47d4.chunk.js",
     "static/js/776.d44aec60.chunk.js": "/jobored-test/static/js/776.d44aec60.chunk.js",
     "static/js/184.bde0bf2c.chunk.js": "/jobored-test/static/js/184.bde0bf2c.chunk.js",
     "index.html": "/jobored-test/index.html",
     "main.526ed5a2.css.map": "/jobored-test/static/css/main.526ed5a2.css.map",
-    "main.d65d0d93.js.map": "/jobored-test/static/js/main.d65d0d93.js.map",
+    "main.0b58ab48.js.map": "/jobored-test/static/js/main.0b58ab48.js.map",
     "302.e13e7728.chunk.css.map": "/jobored-test/static/css/302.e13e7728.chunk.css.map",
-    "302.3b09ad42.chunk.js.map": "/jobored-test/static/js/302.3b09ad42.chunk.js.map",
+    "302.158dcdb0.chunk.js.map": "/jobored-test/static/js/302.158dcdb0.chunk.js.map",
     "171.ac8c651a.chunk.css.map": "/jobored-test/static/css/171.ac8c651a.chunk.css.map",
-    "171.f9c30625.chunk.js.map": "/jobored-test/static/js/171.f9c30625.chunk.js.map",
+    "171.65e3a97a.chunk.js.map": "/jobored-test/static/js/171.65e3a97a.chunk.js.map",
     "557.29feb10f.chunk.css.map": "/jobored-test/static/css/557.29feb10f.chunk.css.map",
-    "557.15423283.chunk.js.map": "/jobored-test/static/js/557.15423283.chunk.js.map",
+    "557.9a54bceb.chunk.js.map": "/jobored-test/static/js/557.9a54bceb.chunk.js.map",
     "661.68800c8b.chunk.css.map": "/jobored-test/static/css/661.68800c8b.chunk.css.map",
     "661.d01a47d4.chunk.js.map": "/jobored-test/static/js/661.d01a47d4.chunk.js.map",
     "776.d44aec60.chunk.js.map": "/jobored-test/static/js/776.d44aec60.chunk.js.map",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.526ed5a2.css",
-    "static/js/main.d65d0d93.js"
+    "static/js/main.0b58ab48.js"
   ]
 }
