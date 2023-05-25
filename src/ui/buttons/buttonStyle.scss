@@ -1,0 +1,83 @@
+.add-favorite-vacancy-button {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 100;
+}
+.add-favorite-vacancy-button .star {
+  position: relative;
+  z-index: 10;
+}
+.add-favorite-vacancy-button:hover .star path {
+  z-index: 10;
+  stroke:#5E96FC
+}
+
+.filter-form_reset-button {
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter-form_reset-button_label:hover ~ .filter-form_reset-button > .cross line{
+  stroke: #5E96FC
+}
+.filter-form_reset-button_label:active ~ .filter-form_reset-button > .cross line{
+  stroke: #5E96FC
+}
+
+.filter-form_reset-button:hover > .cross line {
+  stroke: #5E96FC;
+}
+.filter-form_reset-button:active > .cross line {
+  stroke: #3B7CD3;
+}
+
+.open-form-button,
+.close-form-button {
+  position: absolute;
+  display: none;
+}
+@media (max-width: 767px) and (min-width: 315px) {
+  .open-form-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 5px;
+    right: 10px;
+    width: 17px;
+    height: 17px;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    transition: ease .5s;
+    transform: rotate(0deg);
+    &:hover {
+      outline: 1px solid #5E96FC;
+      cursor: pointer;
+    }
+  }
+
+  .close-form-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 5px;
+    right: 10px;
+    width: 17px;
+    height: 17px;
+    z-index: 100;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    transition: ease .5s;
+    transform: rotate(180deg);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
