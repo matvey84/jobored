@@ -4,20 +4,29 @@ import LocationPointSVG from '../../ui/LocationPointSVG';
 import AddFavoriteVacancyButton from '../../ui/buttons/AddFavoriteVacancYButton';
 import { IVacansy } from '../../types/vacancyTypes';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks';
+import { setCurrentVacancieId } from '../../redux/data-slice/dataSlice';
 interface IProp {
   data: IVacansy | null;
 }
 
 function VacancyItem(props: IProp) {
   const data = props.data;
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
+  const vacancieItemHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    navigate(`/vacancy/${data!.id}`);
+    if (!location.pathname.includes(`${data!.id}`)) {
+      navigate(`/vacancy/${data!.id}`);
+      dispatch(setCurrentVacancieId(e.currentTarget.id));
+    }
+  };
+
   return (
     <section
-      onClick={() => {
-        !location.pathname.includes(`${data!.id}`) && navigate(`/vacancy/${data!.id}`);
-      }}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => vacancieItemHandler(e)}
       className="vacancy"
       id={String(data!.id)}
       data-elem={`vacancy-${String(data!.id)}`}

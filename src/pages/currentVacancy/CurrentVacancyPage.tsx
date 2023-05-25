@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import './current-vacanci-page.scss';
@@ -10,36 +10,34 @@ import Loader from '../../components/loader/Loader';
 function CurrentVacancyPage() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const currentVacancieId = useAppSelector((state) => state.dataSlice.currentVacancieId);
   const currentVacancy = useAppSelector((state) => state.dataSlice.currentVacancy);
   const spinnerStatus = useAppSelector((state) => state.dataSlice.spinnerStatus);
 
   useEffect(() => {
-    dispatch(fetchGetCurrentVacancy(id!));
+    const currentId = id || currentVacancieId;
+    dispatch(fetchGetCurrentVacancy(currentId!));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const createMarkup = useCallback(() => {
-    return { __html: currentVacancy!.vacancyRichText! };
-  }, [currentVacancy]);
 
   return (
     <section className="page current-vacancy-page">
       {!spinnerStatus ? (
-        <>
-          <div className="current-vacancy-page-container">
-            {!!currentVacancy! ? <VacancyItem data={currentVacancy!} /> : <></>}
-            {!!currentVacancy!.vacancyRichText ? (
-              <section
-                dangerouslySetInnerHTML={createMarkup()}
-                className="current-vacancy-page_vacancy-description"
-              ></section>
-            ) : (
-              <section className="current-vacancy-page_vacancy-description">
-                <NoFavoriteVacancyMessage />
-              </section>
-            )}
-          </div>
-        </>
+        <div className="current-vacancy-page-container">
+          {!!currentVacancy! ? <VacancyItem data={currentVacancy!} /> : <></>}
+          {!!currentVacancy ? (
+            <section
+              dangerouslySetInnerHTML={{
+                __html: currentVacancy!.vacancyRichText! || '<p>чтото пошло не так!</p>',
+              }}
+              className="current-vacancy-page_vacancy-description"
+            ></section>
+          ) : (
+            <section className="current-vacancy-page_vacancy-description">
+              <NoFavoriteVacancyMessage />
+            </section>
+          )}
+        </div>
       ) : (
         <Loader />
       )}

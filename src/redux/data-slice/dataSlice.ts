@@ -18,6 +18,7 @@ interface IDataState {
   spinnerStatus: boolean;
   searchVacancie: string;
   isFormOpen: boolean;
+  currentVacancieId: string;
 }
 
 const initFormState: IDataState = {
@@ -34,7 +35,8 @@ const initFormState: IDataState = {
   error: '',
   spinnerStatus: false,
   searchVacancie: '',
-  isFormOpen: false,
+  isFormOpen: true,
+  currentVacancieId: '',
 };
 
 export const dataSlice = createSlice({
@@ -65,6 +67,9 @@ export const dataSlice = createSlice({
     },
     setOpenForm(state, action: PayloadAction<boolean>) {
       state.isFormOpen = action.payload;
+    },
+    setCurrentVacancieId(state, action: PayloadAction<string>) {
+      state.currentVacancieId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -101,8 +106,13 @@ export const dataSlice = createSlice({
   },
 });
 
-export const { setFavoriteVacancy, setSearchVacancie, setFetchQuery, setOpenForm } =
-  dataSlice.actions;
+export const {
+  setFavoriteVacancy,
+  setSearchVacancie,
+  setFetchQuery,
+  setOpenForm,
+  setCurrentVacancieId,
+} = dataSlice.actions;
 export default dataSlice.reducer;
 
 const isError = (action: AnyAction) => {
